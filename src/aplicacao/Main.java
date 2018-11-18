@@ -6,14 +6,13 @@
 package aplicacao;
 
 import controller.TelaDeLoginController;
+import controller.TelaInsereMovimentacaoController;
 import controller.TelaPrincipalController;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -64,11 +63,26 @@ public class Main extends Application {
         }
     }
 
-    /**
-     * @param args the command line arguments
-     */
+    public void mostrTelaInsereMovimentacao() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/view/TelaInsereMovimentacao.fxml"));
+            AnchorPane telaInsereMovimentacao = (AnchorPane) loader.load();
+            TelaInsereMovimentacaoController controlador = loader.getController();
+            controlador.setMain(this);
+            Scene cena = new Scene(telaInsereMovimentacao);
+            primaryStage.setScene(cena);
+            primaryStage.setResizable(false);
+            primaryStage.show();
+            System.out.println("foi");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+        /**
+         * @param args the command line arguments
+         */
     public static void main(String[] args) {
         launch(args);
     }
-
 }

@@ -152,8 +152,8 @@ public class Movimentacao {
         System.out.println("ID = " + getIdMovimentacao());
         System.out.println("Data = " + getData());
         System.out.println("Descrição = " + getDescricao());
-        System.out.println("Valor = R$" + getDescricao());
-        System.out.println("Tipo =" + getTipoBD());
-        System.out.println("Categoria" + getCategoriaBD());
+        System.out.println("Valor = R$ " + getValor());
+        System.out.println("Tipo = " + getTipo().getDescricaoBD());
+        System.out.println("Categoria = " + getCategoria());
     }
 }

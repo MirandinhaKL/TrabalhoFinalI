@@ -65,4 +65,16 @@ public class TipoDeMovimentacao {
         System.out.println("ID = " + getIdTipoMovimentacao());
         System.out.println("Descrição= " + getDescricaoBD());
     }
+
+//    @Override
+//    public String toString() {
+//        return "TipoDeMovimentacao{" + "idTipoMovimentacao=" + idTipoMovimentacao + ", descricao=" + descricao + ", descricaoBD=" + descricaoBD + '}';
+//    }
+    
+    @Override
+    public String toString() {
+        return descricaoBD;
+    }
+     
+     
 }

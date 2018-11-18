@@ -92,7 +92,7 @@
                               <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="182.0" text="10" />
                            </children>
                         </VBox>
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="175.0" text="Inserir movimentação" GridPane.rowIndex="3" />
+                        <Button mnemonicParsing="false" onAction="#handleButtonInserirMovimentacao" prefHeight="25.0" prefWidth="175.0" text="Inserir movimentação" GridPane.rowIndex="3" />
                         <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="175.0" text="Exclurir movimentação" GridPane.rowIndex="4" />
                         <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="175.0" text="Gerar gráficos" GridPane.rowIndex="5" />
                      </children>
@@ -109,7 +109,7 @@
                               <Insets right="15.0" />
                            </HBox.margin>
                         </Label>
-                        <ComboBox prefHeight="25.0" prefWidth="145.0" />
+                        <ComboBox fx:id="comboBoxMes" prefHeight="25.0" prefWidth="145.0" />
                      </children>
                   </HBox>
                   <TableView fx:id="tabelaMovimentacao" prefHeight="296.0" prefWidth="300.0">

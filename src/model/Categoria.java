@@ -66,4 +66,14 @@ public class Categoria {
         System.out.println("ID = " + getIdCategoria());
         System.out.println("Descrição= " + getDescricaoBD());
     }
+
+//    @Override
+//    public String toString() {
+//        return "Categoria{" + "idCategoria=" + idCategoria + ", descricao=" + descricao + ", descricaoBD=" + descricaoBD + '}';
+//    }
+    
+    @Override
+    public String toString() {
+        return descricaoBD;
+    }
 }
