@@ -14,7 +14,7 @@ public class TipoDeMovimentacao {
 
     public TipoDeMovimentacao(int idMovimentacao, String descricao) {
         this.idTipoMovimentacao = idMovimentacao;
-        this.descricao = new SimpleStringProperty(descricao);
+       // this.descricao = new SimpleStringProperty(descricao);
         this.descricaoBD = descricao;
     }
     
@@ -73,7 +73,7 @@ public class TipoDeMovimentacao {
     
     @Override
     public String toString() {
-        return descricaoBD;
+        return getDescricaoBD();
     }
      
      

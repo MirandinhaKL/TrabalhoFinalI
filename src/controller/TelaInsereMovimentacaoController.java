@@ -2,6 +2,7 @@ package controller;
 
 import aplicacao.Main;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,6 +23,7 @@ public class TelaInsereMovimentacaoController implements Initializable {
 
     public Main main;
     public Stage palco;
+    public LocalDate dataSelecionada;
 
     @FXML
     private TextField labelValor;
@@ -40,9 +42,12 @@ public class TelaInsereMovimentacaoController implements Initializable {
 
     @FXML
     private RadioButton buttonRadioDespesa;
-    
+
     @FXML
     private ToggleGroup toggleGroupTipo;
+
+    @FXML
+    private TextField labelDescricao;
 
     /**
      * Initializes the controller class.
@@ -54,6 +59,7 @@ public class TelaInsereMovimentacaoController implements Initializable {
 
     @FXML
     void handleButtonAdicionar(ActionEvent event) {
+        dataSelecionada = dataPicker.getValue();
         main.mostraTelaPrincipal();
     }
 
@@ -61,10 +67,10 @@ public class TelaInsereMovimentacaoController implements Initializable {
     void handleButtonCancelar(ActionEvent event) {
         main.mostraTelaPrincipal();
     }
-    
+
     @FXML
-    void handleRadioGroupTipo(ActionEvent event){
-        RadioButton radioSelecionado = (RadioButton)event.getSource();
+    void handleRadioGroupTipo(ActionEvent event) {
+        RadioButton radioSelecionado = (RadioButton) event.getSource();
     }
 
     public void setMain(Main main) {

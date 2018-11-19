@@ -15,7 +15,7 @@ import model.TipoDeMovimentacao;
 public class MovimentacaoTeste {
 
 //    public static void main(String[] args) {
-//        // ================ Validação do método adicionaMovimentacao no BD. ================  
+        // ================ Validação do método adicionaMovimentacao no BD. ================  
 //        DAOTipoDeMovimentacao conectaTipoMovimentacao = new DAOTipoDeMovimentacao();
 //        TipoDeMovimentacao tipoDeMovimentacao = new TipoDeMovimentacao("Tipo movimento");
 //        conectaTipoMovimentacao.adicionaTipoDeMovimentacao(tipoDeMovimentacao);
@@ -25,7 +25,8 @@ public class MovimentacaoTeste {
 //        conectaCategoria.adicionaCategoria(categoria);
 //
 //        DAOMovimentacao conectaBD = new DAOMovimentacao();
-//        Movimentacao movimentacao = new Movimentacao(tipoDeMovimentacao, categoria, LocalDate.now(), 15023.00, "salário", 'S');
+//        Movimentacao movimentacao = new Movimentacao(tipoDeMovimentacao, categoria);
+////        Movimentacao movimentacao = new Movimentacao(LocalDate.now(), 15023.00, "salário", 'S', tipoDeMovimentacao, categoria);
 //
 //        if (conectaBD.adicionaMovimentacao(movimentacao)) {
 //            System.out.println("Movimentação adicionada com sucesso!");

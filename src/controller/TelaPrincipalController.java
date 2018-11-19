@@ -1,6 +1,7 @@
 package controller;
 
 import aplicacao.Main;
+import java.awt.Color;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
@@ -11,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -31,20 +33,33 @@ public class TelaPrincipalController implements Initializable {
     private List<Movimentacao> listaDeMovimentacoes;
     private Categoria categoria1;
     private Categoria categoria2;
+    private Categoria categoria3;
     private TipoDeMovimentacao tipoDeMovimentacao1;
     private TipoDeMovimentacao tipoDeMovimentacao2;
+    private TipoDeMovimentacao tipoDeMovimentacao3;
     private Movimentacao movimentacao1;
     private Movimentacao movimentacao2;
+    private Movimentacao movimentacao3;
     private LocalDate hoje;
     private double saldoAtual;
+    private double receitaTotal;
+    private double despesaTotal;
     private ObservableList<Movimentacao> movimentacaoObservable = FXCollections.observableArrayList();
-    private ObservableList<String> mesesDoAno = FXCollections.observableArrayList(
-            "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-                "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
-    );
-           
+
     @FXML
-    private ComboBox comboBoxMes;
+    private Label labelTipo;
+
+    @FXML
+    private Label labelUltimaMovimentacao;
+
+    @FXML
+    private Label labelSaldoAtual;
+
+    @FXML
+    private Label labelSaldoPrevisto;
+
+    @FXML
+    private ComboBox<String> comboBoxMes;
 
     @FXML
     private TableView<Movimentacao> tabelaMovimentacao;
@@ -66,27 +81,39 @@ public class TelaPrincipalController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       // preencheComboBoxMes();
+        preencheComboBoxMes();
+        criaTabela();
         carregaTabelaComDadosManuais();
-        colunaTipo.setCellValueFactory(new PropertyValueFactory<>("Tipo"));
-        colunaData.setCellValueFactory(new PropertyValueFactory<>("data"));
-        colunaCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
-        colunaValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
-        tabelaMovimentacao.setItems(movimentacaoObservable);
+        exibeUltimaMovimentacao();
+        calculaSaldoAtual();
+        calculaSaldoPrevisto();
+        configuraLabelDoSaldoAtual();
+        configuraLabelDoSaldoPrevisto();
     }
 
     private void carregarTabelaComDadosDoBanco() {
 
     }
 
+    private void criaTabela() {
+        colunaTipo.setCellValueFactory(new PropertyValueFactory<>("tipoBD"));
+        colunaData.setCellValueFactory(new PropertyValueFactory<>("data"));
+        colunaCategoria.setCellValueFactory(new PropertyValueFactory<>("categoriaBD"));
+        colunaValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
+        tabelaMovimentacao.setItems(movimentacaoObservable);
+    }
+
     private void carregaTabelaComDadosManuais() {
         categoria1 = new Categoria(20, "Salário");
         categoria2 = new Categoria(21, "Alimentação");
+        categoria3 = new Categoria(22, "Passagens");
         tipoDeMovimentacao1 = new TipoDeMovimentacao(30, "Receita");
         tipoDeMovimentacao2 = new TipoDeMovimentacao(31, "Despesa");
+        tipoDeMovimentacao3 = new TipoDeMovimentacao(32, "Despesa");
         hoje = LocalDate.now();
-        movimentacao1 = new Movimentacao(1, hoje, 1200.00, "Câmara de Vereadores", 'S', tipoDeMovimentacao1, categoria1);
-        movimentacao2 = new Movimentacao(2, hoje, 450.00, "Restaurante Pingos", 'N', tipoDeMovimentacao2, categoria2);
+        movimentacao1 = new Movimentacao(1, hoje, 500, "Câmara de Vereadores", 'S', tipoDeMovimentacao1, categoria1);
+        movimentacao2 = new Movimentacao(2, hoje, 200, "Restaurante Pingos", 'N', tipoDeMovimentacao2, categoria2);
+        movimentacao3 = new Movimentacao(3, hoje, 20, "Passagens de ônibus", 'S', tipoDeMovimentacao3, categoria3);
 //        movimentacao1.exibeTodasMovimentacoes();
 //        movimentacao2.exibeTodasMovimentacoes();
 //        categoria1.exibeDadosCategoria();
@@ -95,6 +122,7 @@ public class TelaPrincipalController implements Initializable {
 //        tipoDeMovimentacao2.exibeTiposDeMovimetacoes();
         movimentacaoObservable.add(movimentacao1);
         movimentacaoObservable.add(movimentacao2);
+        movimentacaoObservable.add(movimentacao3);
     }
 
     @FXML
@@ -109,10 +137,96 @@ public class TelaPrincipalController implements Initializable {
     public void setStage(Stage stageLogin) {
         this.palco = stageLogin;
     }
-    
-    public void preencheComboBoxMes(){
-     comboBoxMes = new ComboBox(mesesDoAno);
-    
+
+    public void preencheComboBoxMes() {
+        comboBoxMes.getItems().removeAll(comboBoxMes.getItems());
+        comboBoxMes.getItems().addAll("Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+                "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro");
+    }
+
+    /**
+     * Configura o label para mostrar
+     */
+    public void exibeUltimaMovimentacao() {
+        int tamanho = movimentacaoObservable.size();
+        labelTipo.setText(movimentacaoObservable.get(tamanho - 1).exibeTipoDeMovimentacao());
+        labelUltimaMovimentacao.setText(movimentacaoObservable.get(tamanho - 1).exibeValorDaMovimentacao());
+    }
+
+    /**
+     * @param tipo - Informar se a movimentação é uma receita ou despesa.
+     * @param ehNofuturo - Informar se a movimentação já aconteceu ou está
+     * agendada.
+     * @return somatório de todas as movimentações especificas realizadas.
+     */
+    public double calculaMovimentacao(String tipo, char ehNofuturo) {
+        String tipoDeMovimentacao;
+        char statusDaMovimentacao;
+        double somatorioMovimentacoes = 0;
+        for (int i = 0; i < movimentacaoObservable.size(); i++) {
+            tipoDeMovimentacao = movimentacaoObservable.get(i).getTipoBD().getDescricaoBD();
+            statusDaMovimentacao = movimentacaoObservable.get(i).getParaOfuturo();
+            if (tipoDeMovimentacao.equalsIgnoreCase(tipo) && statusDaMovimentacao == ehNofuturo) {
+                somatorioMovimentacoes = somatorioMovimentacoes + movimentacaoObservable.get(i).getValor();
+            }
+        }
+        return somatorioMovimentacoes;
+    }
+
+    /**
+     * @return Somatório das desepesas efetuadas.
+     */
+    public double calculoDaDespesaAtual() {
+        return calculaMovimentacao("desepsa", 'N');
+    }
+
+    /**
+     * @return Somatório das desepesas efetuadas + as planejadas.
+     */
+    public double calculaDaDespesaFutura() {
+        return calculaMovimentacao("despesa", 'S') + calculaMovimentacao("despesa", 'N');
+    }
+
+    /**
+     * @return Somatório das receitas efetuadas.
+     */
+    public double calculaDaReceitaAtual() {
+        return calculaMovimentacao("receita", 'N');
+    }
+
+    /**
+     * @return Somatório das receitas efetuadas + as planejadas.
+     */
+    public double calculoDaReceitaFutura() {
+        return calculaMovimentacao("receita", 'S') + calculaMovimentacao("receita", 'N');
+    }
+
+    /**
+     * @return Retorna o saldo atual das movimentações financeiras efetuadas.
+     */
+    public double calculaSaldoAtual() {
+        return calculaDaReceitaAtual() - calculoDaDespesaAtual();
+    }
+
+    public double calculaSaldoPrevisto() {
+        return calculoDaReceitaFutura() - calculaDaDespesaFutura();
+    }
+
+    public void configuraLabelDoSaldoPrevisto() {
+        labelSaldoPrevisto.setText("R$ " + String.valueOf(calculaSaldoPrevisto()));
+        if (calculaSaldoPrevisto() < 0) {
+            labelSaldoPrevisto.setStyle("-fx-text-fill: red");
+        } else {
+            labelSaldoPrevisto.setStyle("-fx-text-fill: green");
+        }
+    }
+
+    public void configuraLabelDoSaldoAtual() {
+        labelSaldoAtual.setText("R$ " + String.valueOf(calculaSaldoAtual()));
+        if (calculaSaldoAtual() < 0) {
+            labelSaldoAtual.setStyle("-fx-text-fill: red");
+        } else {
+            labelSaldoAtual.setStyle("-fx-text-fill: green");
+        }
     }
 }
- 

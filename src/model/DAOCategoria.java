@@ -26,7 +26,7 @@ public class DAOCategoria {
         String sql = "insert into categoria(descricao) values(?);";
         try {
             PreparedStatement declaracao = conexao.prepareStatement(sql);
-            declaracao.setString(1, novaCategoria.getDescricao());
+            declaracao.setString(1, novaCategoria.getDescricaoBD());
             declaracao.execute();
             declaracao.close();
             conexao.close();

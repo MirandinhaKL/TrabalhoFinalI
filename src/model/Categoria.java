@@ -17,7 +17,7 @@ public class Categoria {
     }
     
     public Categoria(String descricao){
-        this.descricao = new SimpleStringProperty(descricao);
+       // this.descricao = new SimpleStringProperty(descricao);
         this.descricaoBD = descricao;
     }
     
@@ -27,7 +27,7 @@ public class Categoria {
 
     public Categoria(int idCategoria, String descricao) {
         this.idCategoria = idCategoria;
-        this.descricao = new SimpleStringProperty(descricao);
+       // this.descricao = new SimpleStringProperty(descricao);
         this.descricaoBD = descricao;
     }
 

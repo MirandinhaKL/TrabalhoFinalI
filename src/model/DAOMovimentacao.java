@@ -24,15 +24,15 @@ public class DAOMovimentacao {
 
     public boolean adicionaMovimentacao(Movimentacao move) {
         String sql = "insert into movimentacao(tipo, categoria) value (?,?);";
-        //String sql = "insert into movimentacao(tipo, categoria, data, valor, descricao, pago) value (?,?,?,?,?,?);";
+       // String sql = "insert into movimentacao(tipo, categoria, data, valor, descricao, pago) value (?,?,?,?,?,?);";
         try {
             PreparedStatement declaracao = conexao.prepareStatement(sql);
-            declaracao.setInt(1, move.getTipo().getIdTipoMovimentacao());
-            declaracao.setInt(2, move.getCategoria().getIdCategoria());
+            declaracao.setInt(1, move.getTipoBD().getIdTipoMovimentacao());
+            declaracao.setInt(2, move.getCategoriaBD().getIdCategoria());
 //            declaracao.setDate(3, java.sql.Date.valueOf(move.getData()));
 //            declaracao.setDouble(4, move.getValor());
 //            declaracao.setString(5, move.getDescricao());
-//            declaracao.setString(6, String.valueOf(move.getPago()));
+//            declaracao.setString(6, String.valueOf(move.getParaOfuturo()));
             System.out.println("Foi até aqui!");
             declaracao.execute();
             declaracao.close();
