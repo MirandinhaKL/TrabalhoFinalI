@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -27,6 +28,7 @@ public class Movimentacao {
 //    private char pago;
 //    private ObjectProperty<TipoDeMovimentacao> tipo;
 //    private ObjectProperty<Categoria> categoria;
+    
     public Movimentacao(int idMovimentacao, LocalDate data, double valor, String descricao, char pago, TipoDeMovimentacao tipo, Categoria categoria) {
         this.idMovimentacao = idMovimentacao;
         this.data = data;
@@ -45,7 +47,7 @@ public class Movimentacao {
         this.tipoBD = tipo;
         this.categoriaBD = categoria;
     }
-    
+
     public Movimentacao(TipoDeMovimentacao tipo, Categoria categoria) {
         this.tipoBD = tipo;
         this.categoriaBD = categoria;

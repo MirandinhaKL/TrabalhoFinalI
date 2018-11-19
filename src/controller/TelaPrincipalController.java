@@ -4,6 +4,8 @@ import aplicacao.Main;
 import java.awt.Color;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -44,6 +46,7 @@ public class TelaPrincipalController implements Initializable {
     private double saldoAtual;
     private double receitaTotal;
     private double despesaTotal;
+    //private DateTimeFormatter dataFormatada;
     private ObservableList<Movimentacao> movimentacaoObservable = FXCollections.observableArrayList();
 
     @FXML
@@ -91,6 +94,24 @@ public class TelaPrincipalController implements Initializable {
         configuraLabelDoSaldoPrevisto();
     }
 
+    @FXML
+    void handleComboBox(ActionEvent event) {
+        String mesSelecionado = comboBoxMes.getValue();
+        System.out.println(mesSelecionado);
+    }
+
+    @FXML
+    void handleButtonInserirMovimentacao(ActionEvent event) {
+        main.mostrTelaInsereMovimentacao();
+    }
+
+    /**
+     *  Configura a exibição da data para o formato Brasileiro.
+     */
+//    private DateTimeFormatter formataData() {
+//        return dataFormatada = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+//    }
+
     private void carregarTabelaComDadosDoBanco() {
 
     }
@@ -110,10 +131,9 @@ public class TelaPrincipalController implements Initializable {
         tipoDeMovimentacao1 = new TipoDeMovimentacao(30, "Receita");
         tipoDeMovimentacao2 = new TipoDeMovimentacao(31, "Despesa");
         tipoDeMovimentacao3 = new TipoDeMovimentacao(32, "Despesa");
-        hoje = LocalDate.now();
-        movimentacao1 = new Movimentacao(1, hoje, 500, "Câmara de Vereadores", 'S', tipoDeMovimentacao1, categoria1);
-        movimentacao2 = new Movimentacao(2, hoje, 200, "Restaurante Pingos", 'N', tipoDeMovimentacao2, categoria2);
-        movimentacao3 = new Movimentacao(3, hoje, 20, "Passagens de ônibus", 'S', tipoDeMovimentacao3, categoria3);
+        movimentacao1 = new Movimentacao(1, LocalDate.of(2018, 06, 15), 800, "Câmara de Vereadores", 'S', tipoDeMovimentacao1, categoria1);
+        movimentacao2 = new Movimentacao(2, LocalDate.of(2018, 10, 15), 200, "Restaurante Pingos", 'N', tipoDeMovimentacao2, categoria2);
+        movimentacao3 = new Movimentacao(3, LocalDate.of(2018, 02, 05), 20, "Passagens de ônibus", 'S', tipoDeMovimentacao3, categoria3);
 //        movimentacao1.exibeTodasMovimentacoes();
 //        movimentacao2.exibeTodasMovimentacoes();
 //        categoria1.exibeDadosCategoria();
@@ -125,19 +145,6 @@ public class TelaPrincipalController implements Initializable {
         movimentacaoObservable.add(movimentacao3);
     }
 
-    @FXML
-    void handleButtonInserirMovimentacao(ActionEvent event) {
-        main.mostrTelaInsereMovimentacao();
-    }
-
-    public void setMain(Main main) {
-        this.main = main;
-    }
-
-    public void setStage(Stage stageLogin) {
-        this.palco = stageLogin;
-    }
-
     public void preencheComboBoxMes() {
         comboBoxMes.getItems().removeAll(comboBoxMes.getItems());
         comboBoxMes.getItems().addAll("Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
@@ -145,7 +152,7 @@ public class TelaPrincipalController implements Initializable {
     }
 
     /**
-     * Configura o label para mostrar
+     * Configura o label para exibir a última movimentação na tela.
      */
     public void exibeUltimaMovimentacao() {
         int tamanho = movimentacaoObservable.size();
@@ -177,28 +184,28 @@ public class TelaPrincipalController implements Initializable {
      * @return Somatório das desepesas efetuadas.
      */
     public double calculoDaDespesaAtual() {
-        return calculaMovimentacao("desepsa", 'N');
+        return calculaMovimentacao("Despesa", 'N');
     }
 
     /**
      * @return Somatório das desepesas efetuadas + as planejadas.
      */
     public double calculaDaDespesaFutura() {
-        return calculaMovimentacao("despesa", 'S') + calculaMovimentacao("despesa", 'N');
+        return calculaMovimentacao("Despesa", 'S') + calculoDaDespesaAtual();
     }
 
     /**
      * @return Somatório das receitas efetuadas.
      */
     public double calculaDaReceitaAtual() {
-        return calculaMovimentacao("receita", 'N');
+        return calculaMovimentacao("Receita", 'N');
     }
 
     /**
      * @return Somatório das receitas efetuadas + as planejadas.
      */
     public double calculoDaReceitaFutura() {
-        return calculaMovimentacao("receita", 'S') + calculaMovimentacao("receita", 'N');
+        return calculaMovimentacao("Receita", 'S') + calculaDaReceitaAtual();
     }
 
     /**
@@ -208,10 +215,17 @@ public class TelaPrincipalController implements Initializable {
         return calculaDaReceitaAtual() - calculoDaDespesaAtual();
     }
 
+    /**
+     * @return Retorna o saldo atual das movimentações financeiras efetuadas +
+     * as previstas.
+     */
     public double calculaSaldoPrevisto() {
         return calculoDaReceitaFutura() - calculaDaDespesaFutura();
     }
 
+    /**
+     * Configura na tela principal a cor do saldo previsto exibido.
+     */
     public void configuraLabelDoSaldoPrevisto() {
         labelSaldoPrevisto.setText("R$ " + String.valueOf(calculaSaldoPrevisto()));
         if (calculaSaldoPrevisto() < 0) {
@@ -221,6 +235,9 @@ public class TelaPrincipalController implements Initializable {
         }
     }
 
+    /**
+     * Configura na tela principal a cor do saldo atual exibido.
+     */
     public void configuraLabelDoSaldoAtual() {
         labelSaldoAtual.setText("R$ " + String.valueOf(calculaSaldoAtual()));
         if (calculaSaldoAtual() < 0) {
@@ -228,5 +245,13 @@ public class TelaPrincipalController implements Initializable {
         } else {
             labelSaldoAtual.setStyle("-fx-text-fill: green");
         }
+    }
+
+    public void setMain(Main main) {
+        this.main = main;
+    }
+
+    public void setStage(Stage stageLogin) {
+        this.palco = stageLogin;
     }
 }
