@@ -106,12 +106,11 @@ public class TelaPrincipalController implements Initializable {
     }
 
     /**
-     *  Configura a exibição da data para o formato Brasileiro.
+     * Configura a exibição da data para o formato Brasileiro.
      */
 //    private DateTimeFormatter formataData() {
 //        return dataFormatada = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 //    }
-
     private void carregarTabelaComDadosDoBanco() {
 
     }
@@ -131,9 +130,9 @@ public class TelaPrincipalController implements Initializable {
         tipoDeMovimentacao1 = new TipoDeMovimentacao(30, "Receita");
         tipoDeMovimentacao2 = new TipoDeMovimentacao(31, "Despesa");
         tipoDeMovimentacao3 = new TipoDeMovimentacao(32, "Despesa");
-        movimentacao1 = new Movimentacao(1, LocalDate.of(2018, 06, 15), 800, "Câmara de Vereadores", 'S', tipoDeMovimentacao1, categoria1);
-        movimentacao2 = new Movimentacao(2, LocalDate.of(2018, 10, 15), 200, "Restaurante Pingos", 'N', tipoDeMovimentacao2, categoria2);
-        movimentacao3 = new Movimentacao(3, LocalDate.of(2018, 02, 05), 20, "Passagens de ônibus", 'S', tipoDeMovimentacao3, categoria3);
+        movimentacao1 = new Movimentacao(LocalDate.of(2018, 06, 15), 800, "Câmara de Vereadores", 'S', tipoDeMovimentacao1, categoria1);
+        movimentacao2 = new Movimentacao(LocalDate.of(2018, 10, 15), 200, "Restaurante Pingos", 'N', tipoDeMovimentacao2, categoria2);
+        movimentacao3 = new Movimentacao(LocalDate.of(2018, 02, 05), 20, "Passagens de ônibus", 'S', tipoDeMovimentacao3, categoria3);
 //        movimentacao1.exibeTodasMovimentacoes();
 //        movimentacao2.exibeTodasMovimentacoes();
 //        categoria1.exibeDadosCategoria();

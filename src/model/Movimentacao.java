@@ -1,13 +1,13 @@
 package model;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+//import java.time.format.DateTimeFormatter;
+//import javafx.beans.property.DoubleProperty;
+//import javafx.beans.property.ObjectProperty;
+//import javafx.beans.property.SimpleDoubleProperty;
+//import javafx.beans.property.SimpleObjectProperty;
+//import javafx.beans.property.SimpleStringProperty;
+//import javafx.beans.property.StringProperty;
 
 /**
  * @author Mirandinha
@@ -28,19 +28,18 @@ public class Movimentacao {
 //    private char pago;
 //    private ObjectProperty<TipoDeMovimentacao> tipo;
 //    private ObjectProperty<Categoria> categoria;
-    
-    public Movimentacao(int idMovimentacao, LocalDate data, double valor, String descricao, char pago, TipoDeMovimentacao tipo, Categoria categoria) {
+    public Movimentacao(int idMovimentacao, LocalDate data, double valor, String descricao, char pago, int tipo, int categoria) {
+        super();
         this.idMovimentacao = idMovimentacao;
         this.data = data;
         this.valor = valor;
         this.descricao = descricao;
         this.paraOfuturo = pago;
-        this.tipoBD = tipo;
-        this.categoriaBD = categoria;
     }
 
     public Movimentacao(LocalDate data, double valor, String descricao, char pago, TipoDeMovimentacao tipo, Categoria categoria) {
-        this.data = data;
+        super();
+     //   this.data = data;
         this.valor = valor;
         this.descricao = descricao;
         this.paraOfuturo = pago;
@@ -48,9 +47,23 @@ public class Movimentacao {
         this.categoriaBD = categoria;
     }
 
-    public Movimentacao(TipoDeMovimentacao tipo, Categoria categoria) {
+//    public Movimentacao(TipoDeMovimentacao tipo, Categoria categoria, LocalDate data, double valor, String descricao, char pago) {
+//        this.data = data;
+//        this.valor = valor;
+//        this.descricao = descricao;
+//        this.paraOfuturo = pago;
+//        this.tipoBD = tipo;
+//        this.categoriaBD = categoria;
+//    }
+
+    public Movimentacao(TipoDeMovimentacao tipo, Categoria categoria, LocalDate data, double valor, String descricao, char pago) {
+        super();
         this.tipoBD = tipo;
         this.categoriaBD = categoria;
+        this.data = data;
+        this.valor = valor;
+        this.descricao = descricao;
+        this.paraOfuturo = pago;
     }
 
 //    public Movimentacao(int idMovimentacao, LocalDate data, double valor, String descricao, char pago, TipoDeMovimentacao tipo, Categoria categoria) {
