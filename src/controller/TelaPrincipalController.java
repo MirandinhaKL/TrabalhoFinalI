@@ -8,8 +8,10 @@ import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -46,9 +48,10 @@ public class TelaPrincipalController implements Initializable {
     private double saldoAtual;
     private double receitaTotal;
     private double despesaTotal;
+    private String mesSelecionado;
     //private DateTimeFormatter dataFormatada;
     private ObservableList<Movimentacao> movimentacaoObservable = FXCollections.observableArrayList();
-
+    private FilteredList<Movimentacao> movimentacaoFiltered = new FilteredList<>(movimentacaoObservable);
     @FXML
     private Label labelTipo;
 
@@ -96,13 +99,18 @@ public class TelaPrincipalController implements Initializable {
 
     @FXML
     void handleComboBox(ActionEvent event) {
-        String mesSelecionado = comboBoxMes.getValue();
+        mesSelecionado = comboBoxMes.getValue();
         System.out.println(mesSelecionado);
     }
 
     @FXML
     void handleButtonInserirMovimentacao(ActionEvent event) {
-        main.mostrTelaInsereMovimentacao();
+        main.exibeTelaInsereMovimentacao();
+    }
+
+    @FXML
+    void handleButtonGeraGraficos(ActionEvent event) {
+        main.exibeTelaDeGraficos();
     }
 
     /**
@@ -115,6 +123,14 @@ public class TelaPrincipalController implements Initializable {
 
     }
 
+//    private void filtraData(){
+//        converteMes();
+//        movimentacaoFiltered.setPredicate(
+//        new Predicate<Movimentacao>(){
+//            
+//        }
+//        );
+//    }
     private void criaTabela() {
         colunaTipo.setCellValueFactory(new PropertyValueFactory<>("tipoBD"));
         colunaData.setCellValueFactory(new PropertyValueFactory<>("data"));
@@ -246,6 +262,49 @@ public class TelaPrincipalController implements Initializable {
         }
     }
 
+    private int converteMes() {
+        int numeroDoMes = 0;
+        switch (mesSelecionado) {
+            case "Janeiro":
+                numeroDoMes = 1;
+                break;
+            case "Fevereiro":
+                numeroDoMes = 2;
+                break;
+            case "Março":
+                numeroDoMes = 3;
+                break;
+            case "Abril":
+                numeroDoMes = 4;
+                break;
+            case "Maio":
+                numeroDoMes = 5;
+                break;
+            case "Junho":
+                numeroDoMes = 6;
+                break;
+            case "Julho":
+                numeroDoMes = 7;
+                break;
+            case "Agosto":
+                numeroDoMes = 8;
+                break;
+            case "Setembro":
+                numeroDoMes = 9;
+                break;
+            case "Outubro":
+                numeroDoMes = 10;
+                break;
+            case "Novembro":
+                numeroDoMes = 11;
+                break;
+            case "Dezembro":
+                numeroDoMes = 12;
+                break;
+        }
+        return numeroDoMes;
+    }
+
     public void setMain(Main main) {
         this.main = main;
     }
@@ -253,4 +312,5 @@ public class TelaPrincipalController implements Initializable {
     public void setStage(Stage stageLogin) {
         this.palco = stageLogin;
     }
+
 }

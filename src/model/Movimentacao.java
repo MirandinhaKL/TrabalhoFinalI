@@ -39,7 +39,7 @@ public class Movimentacao {
 
     public Movimentacao(LocalDate data, double valor, String descricao, char pago, TipoDeMovimentacao tipo, Categoria categoria) {
         super();
-     //   this.data = data;
+        this.data = data;
         this.valor = valor;
         this.descricao = descricao;
         this.paraOfuturo = pago;

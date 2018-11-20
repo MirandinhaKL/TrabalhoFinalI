@@ -5,6 +5,7 @@
  */
 package aplicacao;
 
+import controller.TelaDeGraficosController;
 import controller.TelaDeLoginController;
 import controller.TelaInsereMovimentacaoController;
 import controller.TelaPrincipalController;
@@ -47,7 +48,7 @@ public class Main extends Application {
         }
     }
 
-    public void mostraTelaPrincipal() {
+    public void exibeTelaPrincipal() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("/view/TelaPrincipal.fxml"));
@@ -63,7 +64,7 @@ public class Main extends Application {
         }
     }
 
-    public void mostrTelaInsereMovimentacao() {
+    public void exibeTelaInsereMovimentacao() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("/view/TelaInsereMovimentacao.fxml"));
@@ -79,9 +80,27 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-        /**
-         * @param args the command line arguments
-         */
+
+    public void exibeTelaDeGraficos() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/view/TelaDeGraficos.fxml"));
+            AnchorPane telaGeraGraficos = (AnchorPane) loader.load();
+            TelaDeGraficosController controlador = loader.getController();
+            controlador.setMain(this);
+            Scene cena = new Scene(telaGeraGraficos);
+            primaryStage.setScene(cena);
+            primaryStage.setResizable(false);
+            primaryStage.show();
+            System.out.println("Gera gráficos");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }

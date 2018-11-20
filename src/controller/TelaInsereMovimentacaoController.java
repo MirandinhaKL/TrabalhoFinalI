@@ -60,12 +60,12 @@ public class TelaInsereMovimentacaoController implements Initializable {
     @FXML
     void handleButtonAdicionar(ActionEvent event) {
         dataSelecionada = dataPicker.getValue();
-        main.mostraTelaPrincipal();
+        main.exibeTelaPrincipal();
     }
 
     @FXML
     void handleButtonCancelar(ActionEvent event) {
-        main.mostraTelaPrincipal();
+        main.exibeTelaPrincipal();
     }
 
     @FXML

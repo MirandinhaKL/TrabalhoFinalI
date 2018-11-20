@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="controller.TelaDeGraficosController">
+   <children>
+      <AnchorPane>
+         <children>
+            <SplitPane dividerPositions="0.26588628762541805" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <VBox alignment="CENTER" layoutX="43.0" prefHeight="398.0" prefWidth="157.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Button fx:id="painelReceitaDespesa" mnemonicParsing="false" onAction="#handleReceitaXdespesa" prefHeight="78.0" prefWidth="130.0" text="Receita x Despesas" textAlignment="CENTER" wrapText="true">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="15.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#handleDespesaPorCategoria" prefHeight="78.0" prefWidth="130.0" text="Despesas por categoria" textAlignment="CENTER" wrapText="true">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="15.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <Pane fx:id="painelAnual" prefHeight="398.0" prefWidth="436.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <BorderPane layoutX="53.0" layoutY="51.0" prefHeight="254.0" prefWidth="336.0">
+                                 <center>
+                                    <BarChart BorderPane.alignment="CENTER">
+                                      <xAxis>
+                                        <CategoryAxis side="BOTTOM" />
+                                      </xAxis>
+                                      <yAxis>
+                                        <NumberAxis side="LEFT" />
+                                      </yAxis>
+                                    </BarChart>
+                                 </center>
+                              </BorderPane>
+                              <Label alignment="CENTER" layoutX="-2.0" layoutY="14.0" prefHeight="17.0" prefWidth="446.0" text="Receita x despesas anual">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="41.0" layoutY="321.0" text="Selecione o ano de exibiçao:" />
+                              <ComboBox fx:id="comboBoxAnual" layoutX="218.0" layoutY="317.0" onAction="#handleComboBoxAnual" prefHeight="25.0" prefWidth="169.0" />
+                           </children>
+                        </Pane>
+                        <Pane fx:id="painelCategoria" prefHeight="398.0" prefWidth="436.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="14.0" prefHeight="20.0" prefWidth="436.0" text="Despesas por categorias mensais">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <PieChart fx:id="chartPizza" layoutX="93.0" layoutY="70.0" prefHeight="230.0" prefWidth="250.0" />
+                              <Label layoutX="41.0" layoutY="321.0" prefHeight="17.0" prefWidth="200.0" text="Selecione o mes de exibiçao:" />
+                              <ComboBox fx:id="comboBoxMensal" layoutX="213.0" layoutY="317.0" onAction="#handleComboBoxMensal" prefHeight="25.0" prefWidth="176.0" promptText="Selecione ..." />
+                           </children>
+                        </Pane>
+                        <Button layoutX="328.0" layoutY="363.0" mnemonicParsing="false" onAction="#handleButtonVoltarMensal" prefHeight="25.0" prefWidth="61.0" text="Voltar" />
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

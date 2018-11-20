@@ -115,7 +115,7 @@
                         </VBox>
                         <Button mnemonicParsing="false" onAction="#handleButtonInserirMovimentacao" prefHeight="25.0" prefWidth="175.0" text="Inserir movimentação" GridPane.rowIndex="3" />
                         <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="175.0" text="Exclurir movimentação" GridPane.rowIndex="4" />
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="175.0" text="Gerar gráficos" GridPane.rowIndex="5" />
+                        <Button mnemonicParsing="false" onAction="#handleButtonGeraGraficos" prefHeight="25.0" prefWidth="175.0" text="Gerar gráficos" GridPane.rowIndex="5" />
                      </children>
                   </GridPane>
                </children></VBox>
