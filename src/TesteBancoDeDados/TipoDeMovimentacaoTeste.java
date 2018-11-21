@@ -13,7 +13,7 @@ public class TipoDeMovimentacaoTeste {
 
         //================ Validação do método adiciona TipoDeMovimentação no BD. ================
 //        DAOTipoDeMovimentacao conexaoTipoDeMovimentacao = new DAOTipoDeMovimentacao();
-//        TipoDeMovimentacao tipo = new TipoDeMovimentacao("Teste1511");
+//        TipoDeMovimentacao tipo = new TipoDeMovimentacao("Teste100");
 //        if (conexaoTipoDeMovimentacao.adicionaTipoDeMovimentacao(tipo)) {
 //            System.out.println("Tipo de movimentação adicionado com sucesso!");
 //        } else {
@@ -22,7 +22,7 @@ public class TipoDeMovimentacaoTeste {
 // ================ Validação do método atualiza TipoDeMovimentação no BD. ================
 //        DAOTipoDeMovimentacao conexaoTipoDeMovimentacao = new DAOTipoDeMovimentacao();
 //        TipoDeMovimentacao tipo = new TipoDeMovimentacao();
-//        tipo.setIdTipoMovimentacao(5);
+//        tipo.setIdTipoMovimentacao(3);
 //        tipo.setDescricaoBD("Olá");
 //        if (conexaoTipoDeMovimentacao.atualizaTipoDeMovimentacao(tipo)) {
 //            System.out.println("Tipo de movimentação atualizado com sucesso!");
@@ -32,7 +32,7 @@ public class TipoDeMovimentacaoTeste {
 // ================ Validação do método remove TipoDeMovimentação no BD. ================
 //        DAOTipoDeMovimentacao conexaoTipoDeMovimentacao = new DAOTipoDeMovimentacao();
 //        TipoDeMovimentacao tipo = new TipoDeMovimentacao();
-//        tipo.setIdTipoMovimentacao(8);
+//        tipo.setIdTipoMovimentacao(3);
 //        if (conexaoTipoDeMovimentacao.removeTipoDeMovimentação(tipo)) {
 //            System.out.println("Tipo de movimentação removida com sucesso!");
 //        } else {
@@ -52,7 +52,7 @@ public class TipoDeMovimentacaoTeste {
 //================ Validação do método que retorna um tipo de movimentação do BD. ================
 //        DAOTipoDeMovimentacao conexaoTipoDeMovimentacao = new DAOTipoDeMovimentacao();
 //        TipoDeMovimentacao tipo = new TipoDeMovimentacao();
-//        tipo.setIdTipoMovimentacao(9);
+//        tipo.setIdTipoMovimentacao(2);
 //        conexaoTipoDeMovimentacao.retornaUmTipo(tipo).exibeTiposDeMovimetacoes();
 //    }
 }

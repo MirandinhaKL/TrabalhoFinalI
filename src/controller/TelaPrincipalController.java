@@ -34,6 +34,7 @@ public class TelaPrincipalController implements Initializable {
 
     private Main main;
     private Stage palco;
+    private Movimentacao movimentacao;
     private List<Movimentacao> listaDeMovimentacoes;
     private Categoria categoria1;
     private Categoria categoria2;

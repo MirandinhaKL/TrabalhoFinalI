@@ -25,58 +25,70 @@ public class DAOMovimentacao {
     }
 
     public boolean adicionaMovimentacao(Movimentacao move) {
-        //String sql = "insert into movimentacao(tipo, categoria) value (?,?);";
-//        INSERT INTO movimentacao (tipo, categoria, valor, descricao, pago) VALUES(1, 2, 100, 'Teste', 's');
-      String sql = "insert into movimentacao(tipo, categoria, valor, descricao, pago, data) value (?,?,?,?,?,?)";
-      
+        String sql = "insert into movimentacao(categoria, tipo, valor, descricao, pago, datas) value (?,?,?,?,?,?)";
         try {
-            
-            PreparedStatement stmt = conexao.prepareStatement(sql);
-            stmt.setInt(1, move.getTipoBD().getIdTipoMovimentacao());
-            stmt.setInt(2, 2);
-            stmt.setInt(3, 1000);
-            stmt.setString(4, "Teste 2");
-            stmt.setString(5, "s");
-            java.sql.Date data = java.sql.Date.valueOf(LocalDate.now());
-            stmt.setDate(6, data);
-            
-            stmt.execute();
-            stmt.close();
+            PreparedStatement declaracao = conexao.prepareStatement(sql);
+            declaracao.setInt(1, move.getCategoriaBD().getIdCategoria());
+            declaracao.setInt(2, move.getTipoBD().getIdTipoMovimentacao());
+            declaracao.setDouble(3, move.getValor());
+            declaracao.setString(4, move.getDescricao());
+            declaracao.setString(5, String.valueOf(move.getParaOfuturo()));
+            declaracao.setDate(6, java.sql.Date.valueOf(move.getData()));
+            System.out.println(move.getTipoBD().getIdTipoMovimentacao());
+            System.out.println(move.getCategoriaBD().getIdCategoria());
+            System.out.println(java.sql.Date.valueOf(move.getData()));
+            System.out.println(move.getValor());
+            System.out.println(move.getDescricao());
+            System.out.println(String.valueOf(move.getParaOfuturo()));
+            System.out.println("Foi até aqui!");
+            declaracao.execute();
+            declaracao.close();
             conexao.close();
-            
-            
-//        try {
-//            PreparedStatement declaracao = conexao.prepareStatement(sql);
-//            declaracao.setInt(1, move.getTipoBD().getIdTipoMovimentacao());
-//            declaracao.setInt(2, move.getCategoriaBD().getIdCategoria());
-//            declaracao.setDate(3, null);
-//            declaracao.setDouble(4, 100);
-//            declaracao.setString(5, move.getDescricao());
-//            declaracao.setString(6, String.valueOf(move.getParaOfuturo()));
-//            
-//            System.out.println(move.getTipoBD().getIdTipoMovimentacao());
-//            System.out.println(move.getCategoriaBD().getIdCategoria());
-//            System.out.println(java.sql.Date.valueOf(move.getData()));
-//            System.out.println(move.getValor());
-//            System.out.println(move.getDescricao());
-//            System.out.println(String.valueOf(move.getParaOfuturo()));
-//            
-////            System.out.println("Foi até aqui!");
-//            declaracao.execute();
-//            declaracao.close();
-//            conexao.close();
-//            return true;
-//        } catch (SQLException excecao) {
-//            excecao.getMessage().toString();
-//            return false;
-//        }
         } catch (SQLException ex) {
+            System.out.println(ex.getErrorCode());
+            System.out.println(ex.getMessage());
             Logger.getLogger(DAOMovimentacao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return true;
     }
 
     public List<Movimentacao> retornaListaDeMovimentacoes() {
-        return null;
+        List<Movimentacao> listaDeMovimentacoes = new ArrayList<>();
+        String sql = "select * from movimentacao;";
+        try {
+            PreparedStatement declaracao = conexao.prepareStatement(sql);
+            ResultSet consultaBD = declaracao.executeQuery();
+            while (consultaBD.next()) {
+                Movimentacao movimentacao = new Movimentacao();
+                TipoDeMovimentacao tipoMovimentacao = new TipoDeMovimentacao();
+                Categoria categoria = new Categoria();
+                
+                movimentacao.setIdMovimentacao(consultaBD.getInt("id"));
+                tipoMovimentacao.setIdTipoMovimentacao(consultaBD.getInt("tipo"));
+                categoria.setIdCategoria(consultaBD.getInt("categoria"));
+                
+                movimentacao.setData(consultaBD.getDate("datas").toLocalDate());
+                movimentacao.setValor(consultaBD.getDouble("valor"));
+                movimentacao.setDescricao(consultaBD.getString("descricao"));
+                movimentacao.setParaOfuturo(consultaBD.getString("pago").charAt(0));
+               
+                //Obtendo os dados completos do TipoDeMovimentação
+                DAOTipoDeMovimentacao tipoMovimentacaoDao = new DAOTipoDeMovimentacao();
+                tipoMovimentacao = tipoMovimentacaoDao.retornaUmTipo(tipoMovimentacao);
+                
+                //Obtendo os dados completos da Categoria.
+                DAOCategoria categoriaDAO = new DAOCategoria();
+                categoria = categoriaDAO.retornaUmaCategoria(categoria);
+                
+                movimentacao.setCategoriaBD(categoria);
+                movimentacao.setTipoBD(tipoMovimentacao);
+                listaDeMovimentacoes.add(movimentacao);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getErrorCode());
+            System.out.println(ex.getMessage());
+            Logger.getLogger(DAOMovimentacao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            return listaDeMovimentacoes;
     }
 }

@@ -13,16 +13,18 @@ public class CategoriaTeste {
 
 //         ================ Validação do método adiciona categoria no BD. ================
 //        DAOCategoria conexaoCategoria = new DAOCategoria();
-//        Categoria categoria1 = new Categoria("Teste1501");
+//        Categoria categoria1 = new Categoria("Olá Mundo");
+//        categoria1.setIdCategoria(1000);
 //        if (conexaoCategoria.adicionaCategoria(categoria1)) {
 //            System.out.println("Categoria adicionada com sucesso");
 //        } else {
 //            System.out.println("Categoria NÃO adicionada");
 //        }
+//        System.out.println(categoria1.getIdCategoria());
         // ================ Validação do método atualiza categoria no BD. ================
 //        DAOCategoria conexaoCategoria = new DAOCategoria();
 //        Categoria categoria1 = new Categoria();
-//        categoria1.setIdCategoria(1);
+//        categoria1.setIdCategoria(13);
 //        categoria1.setDescricaoBD("Oi");
 //        if (conexaoCategoria.atualizaCategoria(categoria1)) {
 //            System.out.println("Categoria atualizada com sucesso");
@@ -32,7 +34,7 @@ public class CategoriaTeste {
         // ================ Validação do método remove categoria no BD. ================
 //        DAOCategoria conexaoCategoria = new DAOCategoria();
 //        Categoria categoria = new Categoria();
-//        categoria.setIdCategoria(1);
+//        categoria.setIdCategoria(13);
 //        if (conexaoCategoria.removeCategoria(categoria)) {
 //            System.out.println("Categoria removida com sucesso");
 //        } else {

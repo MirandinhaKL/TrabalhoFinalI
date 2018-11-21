@@ -3,10 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/U:/TrabalhoFinalI/src/model/Movimentacao.java</file>
-            <file>file:/U:/TrabalhoFinalI/src/controller/TelaPrincipalController.java</file>
-            <file>file:/U:/TrabalhoFinalI/src/controller/TelaDeGraficosController.java</file>
-            <file>file:/U:/TrabalhoFinalI/src/aplicacao/Main.java</file>
+            <file>file:/C:/Users/Mirandinha/Documents/IF/ADS/s4_desenvolvimentoDeSistemasI/TrabalhosProprios/FinancasPessoais/src/model/Movimentacao.java</file>
+            <file>file:/C:/Users/Mirandinha/Documents/IF/ADS/s4_desenvolvimentoDeSistemasI/TrabalhosProprios/FinancasPessoais/src/model/DAOMovimentacao.java</file>
+            <file>file:/C:/Users/Mirandinha/Documents/IF/ADS/s4_desenvolvimentoDeSistemasI/TrabalhosProprios/FinancasPessoais/src/TesteBancoDeDados/MovimentacaoTeste.java</file>
         </group>
     </open-files>
 </project-private>

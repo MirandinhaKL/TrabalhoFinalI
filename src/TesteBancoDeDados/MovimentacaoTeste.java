@@ -15,26 +15,27 @@ import model.TipoDeMovimentacao;
 public class MovimentacaoTeste {
 
     public static void main(String[] args) {
-//         ================ Validação do método adicionaMovimentacao no BD. ================  
-        DAOTipoDeMovimentacao conectaTipoMovimentacao = new DAOTipoDeMovimentacao();
-        TipoDeMovimentacao tipoDeMovimentacao = new TipoDeMovimentacao("Teste tipo");
-        conectaTipoMovimentacao.adicionaTipoDeMovimentacao(tipoDeMovimentacao);
-        conectaTipoMovimentacao.retornaUmTipo(tipoDeMovimentacao);
+//      ================ Validação do método adicionaMovimentacao no BD. ================  
+        TipoDeMovimentacao tipoDeMovimentacao = new TipoDeMovimentacao();
+        tipoDeMovimentacao.setIdTipoMovimentacao(1);
+        System.out.println(tipoDeMovimentacao.getIdTipoMovimentacao());
 
-        DAOCategoria conectaCategoria = new DAOCategoria();
-        Categoria categoria = new Categoria("teste categoria");
-        conectaCategoria.adicionaCategoria(categoria);
+        Categoria categoria = new Categoria();
+        categoria.setIdCategoria(1);
         System.out.println(categoria.getIdCategoria());
 
         DAOMovimentacao conectaBD = new DAOMovimentacao();
-        Movimentacao movimentacao = new Movimentacao(LocalDate.now(), 15023.00, "salário", 'S', tipoDeMovimentacao, categoria);
+        Movimentacao movimentacao = new Movimentacao();
+        movimentacao.setIdMovimentacao(160);
+        movimentacao.setValor(159);
+        movimentacao.setCategoriaBD(categoria);
+        movimentacao.setData(LocalDate.now());
+        movimentacao.setParaOfuturo('s');
+        movimentacao.setDescricao("lalalalal");
+        movimentacao.setTipoBD(tipoDeMovimentacao);
 
-//        if (conectaBD.adicionaMovimentacao(movimentacao)) {
-        conectaBD.adicionaMovimentacao(movimentacao);
-//            System.out.println("Movimentação adicionada com sucesso!");
-//        } else {
-//            System.out.println("Movimentação NÃO adicionada!");
-//        }
-//        conectaBD.retornaListaDeMovimentacoes();
+//      ================ Validação do método retorna lista de Movimentacao no BD. ================  
+
+        conectaBD.retornaListaDeMovimentacoes();
     }
 }

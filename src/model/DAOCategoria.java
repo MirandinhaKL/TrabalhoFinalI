@@ -25,13 +25,18 @@ public class DAOCategoria {
     public boolean adicionaCategoria(Categoria novaCategoria) {
         String sql = "insert into categoria(descricao) values(?);";
         try {
-            PreparedStatement declaracao = conexao.prepareStatement(sql);
+            PreparedStatement declaracao = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             declaracao.setString(1, novaCategoria.getDescricaoBD());
-            declaracao.execute();
+            declaracao.executeUpdate();
+            final ResultSet resultado = declaracao.getGeneratedKeys();
+            if (resultado.next()) {
+                final int ultimoId = resultado.getInt(1);
+            }
             declaracao.close();
             conexao.close();
             return true;
         } catch (SQLException excecao) {
+            System.out.println(  excecao.getMessage());
             excecao.getMessage();
             return false;
         }

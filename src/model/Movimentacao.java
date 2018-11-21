@@ -36,6 +36,8 @@ public class Movimentacao {
         this.descricao = descricao;
         this.paraOfuturo = pago;
     }
+    
+    
 
     public Movimentacao(LocalDate data, double valor, String descricao, char pago, TipoDeMovimentacao tipo, Categoria categoria) {
         super();
@@ -47,14 +49,14 @@ public class Movimentacao {
         this.categoriaBD = categoria;
     }
 
-//    public Movimentacao(TipoDeMovimentacao tipo, Categoria categoria, LocalDate data, double valor, String descricao, char pago) {
-//        this.data = data;
-//        this.valor = valor;
-//        this.descricao = descricao;
-//        this.paraOfuturo = pago;
-//        this.tipoBD = tipo;
-//        this.categoriaBD = categoria;
-//    }
+    public Movimentacao(int id, LocalDate data, double valor, String descricao, char pago) {
+        super();
+        this.idMovimentacao = id;
+        this.data = data;
+        this.valor = valor;
+        this.descricao = descricao;
+        this.paraOfuturo = pago;
+    }
 
     public Movimentacao(TipoDeMovimentacao tipo, Categoria categoria, LocalDate data, double valor, String descricao, char pago) {
         super();
@@ -76,22 +78,8 @@ public class Movimentacao {
 //        this.categoria = new SimpleObjectProperty<Categoria>(categoria);
 //    }
 //
-//    public Movimentacao(TipoDeMovimentacao tipo, Categoria categoria, LocalDate data, double valor, String descricao, char pago) {
-//        this.tipo = new SimpleObjectProperty<TipoDeMovimentacao>(tipo);
-//        this.categoria = new SimpleObjectProperty<Categoria>(categoria);
-//        this.data = new SimpleObjectProperty<LocalDate>(data);
-//        this.valor = new SimpleDoubleProperty(valor);
-//        this.descricao = new SimpleStringProperty(descricao);
-//        this.pago = pago;
-//    }
-//
-//    public Movimentacao(TipoDeMovimentacao tipo, Categoria categoria) {
-//        this.tipo = new SimpleObjectProperty<TipoDeMovimentacao>(tipo);
-//        this.categoria =new SimpleObjectProperty<Categoria>(categoria);
-//        this.tipoBD = tipo;
-//        this.categoriaBD = categoria;
-//    }
     public Movimentacao() {
+        super();
     }
 
     public int getIdMovimentacao() {

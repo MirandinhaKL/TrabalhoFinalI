@@ -13,12 +13,12 @@ public class ConexaoBancoDeDados {
 
     private static final String user = "root";
     private static final String password = "";
-    private static final String url = "jdbc:mysql://localhost:3306/financaspessoais?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"; //localhost/teste
+    private static final String url = "jdbc:mysql://localhost:3306/financask?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"; //localhost/teste
 
     public static Connection getConexao() {
         try {
             conexao = DriverManager.getConnection(url, user, password);
-            System.out.println("Conexão efetuada com sucesso!");
+            System.out.println("Conexão efetuada com sucesso ao financask");
             return conexao;
 
         } catch (SQLException e) {
