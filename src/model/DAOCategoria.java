@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class DAOCategoria {
 
-    private Connection conexao;
+    private static Connection conexao;
 
     /**
      * Classe construtora que cria a conexão com o banco de dados.
@@ -87,7 +87,7 @@ public class DAOCategoria {
         }
     }
 
-    public List<Categoria> retornaListaDeCategorias() {
+    public static List<Categoria> retornaListaDeCategorias() {
         List<Categoria> listaDeCategorias = new ArrayList<>();
         String sql = "select * from categoria;";
         try {
