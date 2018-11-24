@@ -77,25 +77,33 @@ public class TelaInsereMovimentacaoController implements Initializable {
 
     @FXML
     void handleButtonAdicionar(ActionEvent event) {
-        movimentacao.setIdMovimentacao(1);
-        movimentacao.setValor(Double.parseDouble(labelValor.getText()));
-        tipoDeMovimentacao.setIdTipoMovimentacao(1);
+        movimentacao = new Movimentacao();
+        tipoDeMovimentacao = new TipoDeMovimentacao();
+        categoria = new Categoria();
+
+        tipoDeMovimentacao.setIdTipoMovimentacao(700);
         tipoDeMovimentacao.setDescricaoBD(radioBtnTipoMovimentacao);
-        movimentacao.setParaOfuturo(converteParaCharOStatus());
-        movimentacao.setData(dataSelecionada);
-        categoria.setIdCategoria(1);
+
+        categoria.setIdCategoria(700);
         categoria.setDescricaoBD(categoriaRetornada);
-        movimentacao.setDescricao(labelDescricao.getText());
-        
+
         DAOTipoDeMovimentacao conectaTipo = new DAOTipoDeMovimentacao();
         conectaTipo.adicionaTipoDeMovimentacao(tipoDeMovimentacao);
         DAOCategoria conectaCateogoria = new DAOCategoria();
         conectaCateogoria.adicionaCategoria(categoria);
 
+        movimentacao.setIdMovimentacao(700);
+        movimentacao.setValor(Double.parseDouble(labelValor.getText()));
+        movimentacao.setParaOfuturo(converteParaCharOStatus());
+        movimentacao.setData(dataSelecionada);
+        movimentacao.setDescricao(labelDescricao.getText());
+        movimentacao.setTipoBD(tipoDeMovimentacao);
+        movimentacao.setCategoriaBD(categoria);
+
         DAOMovimentacao conectaDBMovimentacao = new DAOMovimentacao();
         conectaDBMovimentacao.adicionaMovimentacao(movimentacao);
 
-     //   main.exibeTelaPrincipal();
+        main.exibeTelaPrincipal();
     }
 
     @FXML

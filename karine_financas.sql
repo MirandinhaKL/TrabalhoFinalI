@@ -10,7 +10,7 @@ CREATE TABLE categoria(
 
 CREATE TABLE tipos_movimentacao(
 	id INT(11) NOT NULL AUTO_INCREMENT,
-    descricao VARCHAR(50) NOT N	ULL,
+    descricao VARCHAR(50) NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -26,6 +26,9 @@ CREATE TABLE movimentacao(
     FOREIGN KEY (tipo) REFERENCES tipos_movimentacao (id),
     FOREIGN KEY (categoria) REFERENCES categoria (id)
 );
+
+ALTER TABLE movimentacao
+MODIFY COLUMN valor DOUBLE(7,2);
 
 INSERT INTO `categoria` VALUES (1,'Alimentação'),(2,'Educação'),(3,'Esportes'),(4,'Lazer'),(5,'Moradia'),(6,'Outros'),(7,'Presentes'),(8,'Roupas'),(9,'Salário'),(10,'Saúde'),(11,'Transporte'),(12,'Viagem');
 

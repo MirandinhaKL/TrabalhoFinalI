@@ -10,25 +10,25 @@ public class Categoria {
 
     private int idCategoria;
     private StringProperty descricao;
-    private String descricaoBD;
+    //private String descricaoBD;
 
     public Categoria() {
-       
+
     }
-    
-    public Categoria(String descricao){
-       // this.descricao = new SimpleStringProperty(descricao);
-        this.descricaoBD = descricao;
+
+    public Categoria(String descricao) {
+        this.descricao = new SimpleStringProperty(descricao);
+//        this.descricaoBD = descricao;
     }
-    
-    public Categoria(int idCategoria){
+
+    public Categoria(int idCategoria) {
         this.idCategoria = idCategoria;
     }
 
     public Categoria(int idCategoria, String descricao) {
         this.idCategoria = idCategoria;
-       // this.descricao = new SimpleStringProperty(descricao);
-        this.descricaoBD = descricao;
+        this.descricao = new SimpleStringProperty(descricao);
+//        this.descricaoBD = descricao;
     }
 
     public int getIdCategoria() {
@@ -39,6 +39,10 @@ public class Categoria {
         this.idCategoria = idCategoria;
     }
 
+    public StringProperty getDescricaoProperty() {
+        return descricao;
+    }
+
     public String getDescricao() {
         return descricao.get();
     }
@@ -46,34 +50,28 @@ public class Categoria {
     public void setDescricao(String descricao) {
         this.descricao.set(descricao);
     }
-    
-    public StringProperty getDescricaoProperty(){
-        return descricao;
-    }
 
     //Adicionado para o Banco de Dados funcionar corretamente.
-    
-    public String getDescricaoBD() {
-        return descricaoBD;
-    }
+//    public String getDescricaoBD() {
+//        return descricaoBD;
+//    }
+//
+//    public void setDescricaoBD(String descricaoBD) {
+//        this.descricaoBD = descricaoBD;
+//    }
 
-    public void setDescricaoBD(String descricaoBD) {
-        this.descricaoBD = descricaoBD;
-    }
-    
-     public void exibeDadosCategoria(){
+    public void exibeDadosCategoria() {
         System.out.println("=========================== ");
         System.out.println("ID = " + getIdCategoria());
-        System.out.println("Descrição= " + getDescricaoBD());
+        System.out.println("Descrição= " + getDescricaoProperty());
     }
 
 //    @Override
 //    public String toString() {
 //        return "Categoria{" + "idCategoria=" + idCategoria + ", descricao=" + descricao + ", descricaoBD=" + descricaoBD + '}';
 //    }
-    
     @Override
     public String toString() {
-        return descricaoBD;
+        return getDescricao();
     }
 }
