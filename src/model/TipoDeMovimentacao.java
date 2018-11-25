@@ -1,7 +1,7 @@
 package model;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+//import javafx.beans.property.SimpleStringProperty;
+//import javafx.beans.property.StringProperty;
 
 /**
  * @author Mirandinha
@@ -9,13 +9,13 @@ import javafx.beans.property.StringProperty;
 public class TipoDeMovimentacao {
 
     private int idTipoMovimentacao;
-    private StringProperty descricao;
-//    private String descricaoBD;
+   // private StringProperty descricao;
+    private String descricao;
 
     public TipoDeMovimentacao(int idMovimentacao, String descricao) {
         this.idTipoMovimentacao = idMovimentacao;
-        this.descricao = new SimpleStringProperty(descricao);
-//        this.descricaoBD = descricao;
+       // this.descricao = new SimpleStringProperty(descricao);
+        this.descricao = descricao;
     }
 
     public TipoDeMovimentacao() {
@@ -27,8 +27,8 @@ public class TipoDeMovimentacao {
     }
 
     public TipoDeMovimentacao(String descricao) {
-        this.descricao = new SimpleStringProperty(descricao);
-//        this.descricaoBD = descricao;
+      //  this.descricao = new SimpleStringProperty(descricao);
+        this.descricao = descricao;
     }
 
     public int getIdTipoMovimentacao() {
@@ -39,25 +39,25 @@ public class TipoDeMovimentacao {
         this.idTipoMovimentacao = idMovimentacao;
     }
 
-    public StringProperty descricaoProperty() {
+//    public StringProperty descricaoProperty() {
+//        return descricao;
+//    }
+
+//    public String getDescricao() {
+//        return descricao.get();
+//    }
+//
+//    public void setDescricao(String descricao) {
+//        this.descricao.set(descricao);
+//    }
+
+    public String getDescricao() {
         return descricao;
     }
 
-    public String getDescricao() {
-        return descricao.get();
+    public void setDescricao(String descricaoBD) {
+        this.descricao = descricaoBD;
     }
-
-    public void setDescricao(String descricao) {
-        this.descricao.set(descricao);
-    }
-
-//    public String getDescricaoBD() {
-//        return descricaoBD;
-//    }
-//
-//    public void setDescricaoBD(String descricaoBD) {
-//        this.descricaoBD = descricaoBD;
-//    }
 
     public void exibeTiposDeMovimetacoes() {
         System.out.println("=========================== ");

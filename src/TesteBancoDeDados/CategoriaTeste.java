@@ -10,10 +10,10 @@ import model.DAOCategoria;
 public class CategoriaTeste {
 
 //    public static void main(String[] args) {
-
-//         ================ Validação do método adiciona categoria no BD. ================
+//
+////         ================ Validação do método adiciona categoria no BD. ================
 //        DAOCategoria conexaoCategoria = new DAOCategoria();
-//        Categoria categoria1 = new Categoria("Olá Mundo");
+//        Categoria categoria1 = new Categoria("Oi");
 //        categoria1.setIdCategoria(1000);
 //        if (conexaoCategoria.adicionaCategoria(categoria1)) {
 //            System.out.println("Categoria adicionada com sucesso");
@@ -21,7 +21,9 @@ public class CategoriaTeste {
 //            System.out.println("Categoria NÃO adicionada");
 //        }
 //        System.out.println(categoria1.getIdCategoria());
-        // ================ Validação do método atualiza categoria no BD. ================
+//        }
+        // ================ Validação do método atualiza categ
+//            System.out.printoria no BD. ================
 //        DAOCategoria conexaoCategoria = new DAOCategoria();
 //        Categoria categoria1 = new Categoria();
 //        categoria1.setIdCategoria(13);

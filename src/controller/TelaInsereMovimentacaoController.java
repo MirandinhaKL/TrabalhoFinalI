@@ -82,10 +82,10 @@ public class TelaInsereMovimentacaoController implements Initializable {
         categoria = new Categoria();
 
         tipoDeMovimentacao.setIdTipoMovimentacao(700);
-        tipoDeMovimentacao.setDescricaoBD(radioBtnTipoMovimentacao);
+        tipoDeMovimentacao.setDescricao(radioBtnTipoMovimentacao);
 
         categoria.setIdCategoria(700);
-        categoria.setDescricaoBD(categoriaRetornada);
+        categoria.setDescricao(categoriaRetornada);
 
         DAOTipoDeMovimentacao conectaTipo = new DAOTipoDeMovimentacao();
         conectaTipo.adicionaTipoDeMovimentacao(tipoDeMovimentacao);
@@ -94,11 +94,11 @@ public class TelaInsereMovimentacaoController implements Initializable {
 
         movimentacao.setIdMovimentacao(700);
         movimentacao.setValor(Double.parseDouble(labelValor.getText()));
-        movimentacao.setParaOfuturo(converteParaCharOStatus());
+        movimentacao.setParaOfuturo(true); // ver se funciona
         movimentacao.setData(dataSelecionada);
         movimentacao.setDescricao(labelDescricao.getText());
-        movimentacao.setTipoBD(tipoDeMovimentacao);
-        movimentacao.setCategoriaBD(categoria);
+        movimentacao.setTipo(tipoDeMovimentacao);
+        movimentacao.setCategoria(categoria);
 
         DAOMovimentacao conectaDBMovimentacao = new DAOMovimentacao();
         conectaDBMovimentacao.adicionaMovimentacao(movimentacao);

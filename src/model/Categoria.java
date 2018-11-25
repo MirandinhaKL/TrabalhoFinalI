@@ -9,16 +9,16 @@ import javafx.beans.property.StringProperty;
 public class Categoria {
 
     private int idCategoria;
-    private StringProperty descricao;
-    //private String descricaoBD;
+    //private StringProperty descricao;
+    private String descricao;
 
     public Categoria() {
 
     }
 
     public Categoria(String descricao) {
-        this.descricao = new SimpleStringProperty(descricao);
-//        this.descricaoBD = descricao;
+        //   this.descricao = new SimpleStringProperty(descricao);
+        this.descricao = descricao;
     }
 
     public Categoria(int idCategoria) {
@@ -27,8 +27,8 @@ public class Categoria {
 
     public Categoria(int idCategoria, String descricao) {
         this.idCategoria = idCategoria;
-        this.descricao = new SimpleStringProperty(descricao);
-//        this.descricaoBD = descricao;
+//        this.descricao = new SimpleStringProperty(descricao);
+        this.descricao = descricao;
     }
 
     public int getIdCategoria() {
@@ -39,31 +39,31 @@ public class Categoria {
         this.idCategoria = idCategoria;
     }
 
-    public StringProperty getDescricaoProperty() {
+//    public StringProperty getDescricaoProperty() {
+//        return descricao;
+//    }
+
+//    public String getDescricao() {
+//        return descricao.get();
+//    }
+
+//    public void setDescricao(String descricao) {
+//        this.descricao.set(descricao);
+//    }
+
+//    Adicionado para o Banco de Dados funcionar corretamente.
+    public String getDescricao() {
         return descricao;
     }
 
-    public String getDescricao() {
-        return descricao.get();
+    public void setDescricao(String descricaoBD) {
+        this.descricao = descricaoBD;
     }
-
-    public void setDescricao(String descricao) {
-        this.descricao.set(descricao);
-    }
-
-    //Adicionado para o Banco de Dados funcionar corretamente.
-//    public String getDescricaoBD() {
-//        return descricaoBD;
-//    }
-//
-//    public void setDescricaoBD(String descricaoBD) {
-//        this.descricaoBD = descricaoBD;
-//    }
-
     public void exibeDadosCategoria() {
         System.out.println("=========================== ");
         System.out.println("ID = " + getIdCategoria());
-        System.out.println("Descrição= " + getDescricaoProperty());
+       // System.out.println("Descrição= " + getDescricaoProperty());
+        System.out.println("Descrição= " + getDescricao());
     }
 
 //    @Override

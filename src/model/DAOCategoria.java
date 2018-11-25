@@ -26,7 +26,7 @@ public class DAOCategoria {
         String sql = "insert into categoria(descricao) values(?);";
         try {
             PreparedStatement declaracao = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            declaracao.setString(1, novaCategoria.getDescricaoBD());
+            declaracao.setString(1, novaCategoria.getDescricao());
             declaracao.executeUpdate();
             final ResultSet resultado = declaracao.getGeneratedKeys();
             if (resultado.next()) {
@@ -46,7 +46,7 @@ public class DAOCategoria {
         String sql = "update categoria set descricao = ? where id = ?;";
         try {
             PreparedStatement declaracao = conexao.prepareStatement(sql);
-            declaracao.setString(1, categoria.getDescricaoBD());
+            declaracao.setString(1, categoria.getDescricao());
             declaracao.setInt(2, categoria.getIdCategoria());
             declaracao.execute();
             declaracao.close();;
@@ -96,7 +96,7 @@ public class DAOCategoria {
             while (consultaBD.next()) {
                 Categoria itemCategoria = new Categoria();
                 itemCategoria.setIdCategoria(consultaBD.getInt("id"));
-                itemCategoria.setDescricaoBD(consultaBD.getString("descricao"));
+                itemCategoria.setDescricao(consultaBD.getString("descricao"));
                 listaDeCategorias.add(itemCategoria);
             }
             declaracao.close();
@@ -119,7 +119,7 @@ public class DAOCategoria {
             ResultSet consultaBD = declaracao.executeQuery();
             System.out.println("categoira retoranda");
             if (consultaBD.next()) {
-                categoria.setDescricaoBD(consultaBD.getString("descricao"));
+                categoria.setDescricao(consultaBD.getString("descricao"));
                 retornaCategoria = categoria;
             }
         } catch (Exception excecao) {

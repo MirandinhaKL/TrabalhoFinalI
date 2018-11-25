@@ -45,7 +45,7 @@ public class DAOTipoDeMovimentacao {
         String sql = "update tipos_movimentacao set descricao = ? where id = ?;";
         try {
             PreparedStatement declaracao = conexao.prepareStatement(sql);
-            declaracao.setString(1, tipo.getDescricaoBD());
+            declaracao.setString(1, tipo.getDescricao());
             declaracao.setInt(2, tipo.getIdTipoMovimentacao());
             declaracao.execute();
             declaracao.close();
@@ -95,7 +95,7 @@ public class DAOTipoDeMovimentacao {
             while (consultaBD.next()) {
                 TipoDeMovimentacao tipo = new TipoDeMovimentacao();
                 tipo.setIdTipoMovimentacao(consultaBD.getInt("id"));
-                tipo.setDescricaoBD(consultaBD.getString("descricao"));
+                tipo.setDescricao(consultaBD.getString("descricao"));
                 listaDeTiposDeMovimentacoes.add(tipo);
             }
             declaracao.close();
@@ -117,7 +117,7 @@ public class DAOTipoDeMovimentacao {
             declaracao.setInt(1, tipo.getIdTipoMovimentacao());
             ResultSet consultaBD = declaracao.executeQuery();
             if (consultaBD.next()) {
-                tipo.setDescricaoBD(consultaBD.getString("descricao"));
+                tipo.setDescricao(consultaBD.getString("descricao"));
                 tipoRetornado = tipo;
             }
         } catch (Exception excecao) {
