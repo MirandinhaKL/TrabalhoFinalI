@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,15 +23,21 @@ public class DAOTipoDeMovimentacao {
     }
 
     public boolean adicionaTipoDeMovimentacao(TipoDeMovimentacao novaMovimentacao) {
-        String sql = "insert into tipos_movimentacao (descricao) values (?)";
+        String sql = "insert into tipos_movimentacao(descricao) values(?);";
         try {
-            PreparedStatement declaracao = conexao.prepareStatement(sql);
+            PreparedStatement declaracao = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             declaracao.setString(1, novaMovimentacao.getDescricao());
             declaracao.execute();
+            System.out.println("DAOTIPO ADICIONADO = " + novaMovimentacao.getDescricao());
+            final ResultSet resultado = declaracao.getGeneratedKeys();
+            if (resultado.next()) {
+                final int ultimoId = resultado.getInt(1);
+            }
             declaracao.close();
             conexao.close();
             return true;
-        } catch (Exception excecao) {
+        } catch (SQLException excecao) {
+            System.out.println(  excecao.getMessage());
             excecao.getMessage();
             return false;
         }
@@ -108,8 +110,8 @@ public class DAOTipoDeMovimentacao {
         }
         return listaDeTiposDeMovimentacoes;
     }
-    
-    public TipoDeMovimentacao retornaUmTipo(TipoDeMovimentacao tipo){
+
+    public TipoDeMovimentacao retornaUmTipo(TipoDeMovimentacao tipo) {
         String sql = "select * from tipos_movimentacao where id=?;";
         TipoDeMovimentacao tipoRetornado = new TipoDeMovimentacao();
         try {
@@ -119,6 +121,7 @@ public class DAOTipoDeMovimentacao {
             if (consultaBD.next()) {
                 tipo.setDescricao(consultaBD.getString("descricao"));
                 tipoRetornado = tipo;
+                System.out.println("CLASSE DAO TIPO RETORNADO" + tipoRetornado);
             }
         } catch (Exception excecao) {
             excecao.getMessage();

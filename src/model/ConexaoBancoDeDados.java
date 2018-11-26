@@ -18,7 +18,7 @@ public class ConexaoBancoDeDados {
     public static Connection getConexao() {
         try {
             conexao = DriverManager.getConnection(url, user, password);
-            System.out.println("Conexão efetuada com sucesso ao financask");
+           // System.out.println("Conexão efetuada com sucesso ao financask");
             return conexao;
 
         } catch (SQLException e) {

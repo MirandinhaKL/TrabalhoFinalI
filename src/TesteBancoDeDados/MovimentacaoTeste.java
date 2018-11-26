@@ -13,9 +13,9 @@ import model.TipoDeMovimentacao;
 /**
  * @author Mirandinha //
  */
-//public class MovimentacaoTeste {
+public class MovimentacaoTeste {
 
-//    public static void main(String[] args) {
+    public static void main(String[] args) {
 //      ================ Validação do método adicionaMovimentacao no BD. ================  
 //        TipoDeMovimentacao tipoDeMovimentacao = new TipoDeMovimentacao();
 //        tipoDeMovimentacao.setIdTipoMovimentacao(5);
@@ -51,19 +51,19 @@ import model.TipoDeMovimentacao;
 //
 //      ================ Validação do método retorna lista de Movimentacao no BD. ================  
 
-//        DAOMovimentacao conectaBanco = new DAOMovimentacao();
-//        List<Movimentacao> listaMovimentacao = conectaBanco.retornaListaDeMovimentacoes();
-//        if (listaMovimentacao != null) {
-//            System.out.println("Listagem das movimentações:");
-//            for (int i = 0; i < listaMovimentacao.size(); i++) {
-//                listaMovimentacao.get(i).exibeTodasMovimentacoes();
-//            }
-//        } else {
-//            System.out.println("Lista nula");
-//        }
-//    }
+        DAOMovimentacao conectaBanco = new DAOMovimentacao();
+        List<Movimentacao> listaMovimentacao = conectaBanco.retornaListaDeMovimentacoes();
+        if (listaMovimentacao != null) {
+            System.out.println("Listagem das movimentações:");
+            for (int i = 0; i < listaMovimentacao.size(); i++) {
+                listaMovimentacao.get(i).exibeTodasMovimentacoes();
+            }
+        } else {
+            System.out.println("Lista nula");
+        }
+    }
 
-//      ================ Validação do método retorna remove Movimentacao no BD. ================  
+//      ================ Validação do método remove Movimentacao no BD. ================  
 //        DAOMovimentacao conectaBD = new DAOMovimentacao();
 //        Movimentacao movimentacao = new Movimentacao();
 //        movimentacao.setIdMovimentacao(16);
@@ -73,4 +73,4 @@ import model.TipoDeMovimentacao;
 //            System.out.println("Movimentação NÃO removida!");
 //        }
 //}
-//}
+}

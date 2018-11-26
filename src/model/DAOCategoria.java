@@ -117,10 +117,10 @@ public class DAOCategoria {
             PreparedStatement declaracao = conexao.prepareStatement(sql);
             declaracao.setInt(1, categoria.getIdCategoria());
             ResultSet consultaBD = declaracao.executeQuery();
-            System.out.println("categoira retoranda");
             if (consultaBD.next()) {
                 categoria.setDescricao(consultaBD.getString("descricao"));
                 retornaCategoria = categoria;
+                System.out.println(retornaCategoria);
             }
         } catch (Exception excecao) {
             excecao.getMessage();

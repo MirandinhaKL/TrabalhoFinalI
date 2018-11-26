@@ -39,15 +39,17 @@ public class TelaInsereMovimentacaoController implements Initializable {
     private String radioBtnTipoMovimentacao;
     private String statusRetornado;
     private String categoriaRetornada;
+    private List<Categoria> listaDeCategorias;
+    private ObservableList<Categoria> categoriaObservable;
 
     @FXML
     private TextField labelValor;
 
     @FXML
-    private ComboBox<String> comboBoxStatusMovimentacao;
+    private ComboBox comboBoxStatusMovimentacao;
 
     @FXML
-    private ComboBox<String> comboBoxCategoria;
+    private ComboBox comboBoxCategoria;
 
     @FXML
     private DatePicker dataPicker;
@@ -77,32 +79,30 @@ public class TelaInsereMovimentacaoController implements Initializable {
 
     @FXML
     void handleButtonAdicionar(ActionEvent event) {
-        movimentacao = new Movimentacao();
-        tipoDeMovimentacao = new TipoDeMovimentacao();
+
         categoria = new Categoria();
-
-        tipoDeMovimentacao.setIdTipoMovimentacao(700);
-        tipoDeMovimentacao.setDescricao(radioBtnTipoMovimentacao);
-
-        categoria.setIdCategoria(700);
+        categoria.setIdCategoria(1);
         categoria.setDescricao(categoriaRetornada);
-
-        DAOTipoDeMovimentacao conectaTipo = new DAOTipoDeMovimentacao();
-        conectaTipo.adicionaTipoDeMovimentacao(tipoDeMovimentacao);
         DAOCategoria conectaCateogoria = new DAOCategoria();
         conectaCateogoria.adicionaCategoria(categoria);
 
-        movimentacao.setIdMovimentacao(700);
+        tipoDeMovimentacao = new TipoDeMovimentacao();
+        tipoDeMovimentacao.setIdTipoMovimentacao(1);
+        tipoDeMovimentacao.setDescricao(radioBtnTipoMovimentacao);
+        DAOTipoDeMovimentacao conectaTipo = new DAOTipoDeMovimentacao();
+        conectaTipo.adicionaTipoDeMovimentacao(tipoDeMovimentacao);
+
+        DAOMovimentacao conectaDBMovimentacao = new DAOMovimentacao();
+        movimentacao = new Movimentacao();
+        movimentacao.setIdMovimentacao(1);
         movimentacao.setValor(Double.parseDouble(labelValor.getText()));
-        movimentacao.setParaOfuturo(true); // ver se funciona
+        movimentacao.setParaOfuturo(converteComboBoxStatus()); // ver se funciona
         movimentacao.setData(dataSelecionada);
         movimentacao.setDescricao(labelDescricao.getText());
         movimentacao.setTipo(tipoDeMovimentacao);
         movimentacao.setCategoria(categoria);
-
-        DAOMovimentacao conectaDBMovimentacao = new DAOMovimentacao();
+        
         conectaDBMovimentacao.adicionaMovimentacao(movimentacao);
-
         main.exibeTelaPrincipal();
     }
 
@@ -115,13 +115,28 @@ public class TelaInsereMovimentacaoController implements Initializable {
     void handleRadioGroupTipo(ActionEvent event) {
         RadioButton radioSelecionado = (RadioButton) event.getSource();
         radioBtnTipoMovimentacao = radioSelecionado.getText();
-        System.out.println(radioBtnTipoMovimentacao);
+        System.out.println("Verificando radioButton " + radioBtnTipoMovimentacao);
+    }
+
+    public void preencheComboBoxStatus() {
+        comboBoxStatusMovimentacao.getItems().removeAll(comboBoxCategoria.getItems());
+        comboBoxStatusMovimentacao.getItems().addAll("Já efetuada", "Agendada");
     }
 
     @FXML
     void handleComboBoxStatusMovimentacao(ActionEvent event) {
-        statusRetornado = comboBoxStatusMovimentacao.getValue();
+        statusRetornado = comboBoxStatusMovimentacao.getValue().toString(); //adicionei o toString
+        converteComboBoxStatus();
         System.out.println(statusRetornado);
+    }
+
+    public boolean converteComboBoxStatus() {
+        if (statusRetornado.equalsIgnoreCase("Já efetuada")) {
+            return false;
+        } else if (statusRetornado.equalsIgnoreCase("Agendada")) {
+            return true;
+        }
+        return false;
     }
 
     @FXML
@@ -132,23 +147,8 @@ public class TelaInsereMovimentacaoController implements Initializable {
 
     @FXML
     void handleComboBoxCategoria(ActionEvent event) {
-        categoriaRetornada = comboBoxCategoria.getValue();
+        categoriaRetornada = comboBoxCategoria.getValue().toString();
         System.out.println(categoriaRetornada);
-    }
-
-    public void preencheComboBoxStatus() {
-        comboBoxStatusMovimentacao.getItems().removeAll(comboBoxStatusMovimentacao.getItems());
-        comboBoxStatusMovimentacao.getItems().addAll("Já efetuada", "Agendada");
-    }
-
-    public Character converteParaCharOStatus() {
-        System.out.println(statusRetornado);
-        if (statusRetornado.equalsIgnoreCase("Já efetuada")) {
-            return 'n';
-        } else if (statusRetornado.equalsIgnoreCase("Agendada")) {
-            return 's';
-        }
-        return null;
     }
 
     public void preencheComboBoxCategoria() {

@@ -1,7 +1,7 @@
 package model;
 
-//import javafx.beans.property.SimpleStringProperty;
-//import javafx.beans.property.StringProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 /**
  * @author Mirandinha
@@ -55,8 +55,8 @@ public class TipoDeMovimentacao {
         return descricao;
     }
 
-    public void setDescricao(String descricaoBD) {
-        this.descricao = descricaoBD;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public void exibeTiposDeMovimetacoes() {
@@ -73,5 +73,4 @@ public class TipoDeMovimentacao {
     public String toString() {
         return getDescricao();
     }
-
 }

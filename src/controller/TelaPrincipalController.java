@@ -15,6 +15,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -36,16 +37,6 @@ public class TelaPrincipalController implements Initializable {
     private Main main;
     private Stage palco;
     private Movimentacao movimentacao;
-//    private Categoria categoria1;
-//    private Categoria categoria2;
-//    private Categoria categoria3;
-//    private TipoDeMovimentacao tipoDeMovimentacao1;
-//    private TipoDeMovimentacao tipoDeMovimentacao2;
-//    private TipoDeMovimentacao tipoDeMovimentacao3;
-//    private Movimentacao movimentacao1;
-//    private Movimentacao movimentacao2;
-//    private Movimentacao movimentacao3;
-    private LocalDate hoje;
     private double saldoAtual;
     private double receitaTotal;
     private double despesaTotal;
@@ -89,21 +80,12 @@ public class TelaPrincipalController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        List<Movimentacao> listaDeMovimentacoes = DAOMovimentacao.retornaListaDeMovimentacoes();
-//        for (int i = 0; i < listaDeMovimentacoes.size(); i++) {
-//            movimentacaoObservable.add(new Movimentacao(
-//                    listaDeMovimentacoes.get(i).getIdMovimentacao(),
-//                    listaDeMovimentacoes.get(i).getTipo(),
-//                    listaDeMovimentacoes.get(i).getCategoria(),
-//                    listaDeMovimentacoes.get(i).getData(),
-//                    listaDeMovimentacoes.get(i).getValor(),
-//                    listaDeMovimentacoes.get(i).getDescricao(),
-//                    listaDeMovimentacoes.get(i).getParaOfuturo()));
-//        }
         preencheComboBoxMes();
         criaTabela();
         carregarTabelaComDadosDoBanco();
-        //  exibeUltimaMovimentacao();
+        exibeUltimaMovimentacao();
+//        DAOMovimentacao dao = new DAOMovimentacao();
+//        dao.retornaListaDeMovimentacoes();
 //        calculaSaldoAtual();
 //        calculaSaldoPrevisto();
 //        configuraLabelDoSaldoAtual();
@@ -125,6 +107,23 @@ public class TelaPrincipalController implements Initializable {
     void handleButtonGeraGraficos(ActionEvent event) {
         main.exibeTelaDeGraficos();
     }
+    
+    @FXML
+    void handleButtonExcluir(ActionEvent event) {
+        Movimentacao movimentacao = tabelaMovimentacao.getSelectionModel().getSelectedItem();
+        if (movimentacao != null) {
+            DAOMovimentacao conectaBD = new DAOMovimentacao();
+            conectaBD.removeMovimentacao(movimentacao);
+            carregarTabelaComDadosDoBanco();
+        }else{
+            String titulo = "Falha na exclusão...";
+            String cabecalho = "Item não excluído!";
+            String mensagem = "\"Por favor, selecione uma movimentação"
+                    + " financeira na tabela.";
+            main.mostraAlerta(Alert.AlertType.WARNING, titulo, cabecalho, mensagem);
+        }
+    }
+    
 
     /**
      * Configura a exibição da data para o formato Brasileiro.
@@ -132,52 +131,25 @@ public class TelaPrincipalController implements Initializable {
 //    private DateTimeFormatter formataData() {
 //        return dataFormatada = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 //    }
+    
+    
     public void carregarTabelaComDadosDoBanco() {
-        colunaTipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
-        colunaData.setCellValueFactory(new PropertyValueFactory<>("data"));
-        colunaCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
-        colunaValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
         daoMovimentacao = new DAOMovimentacao();
         listaDeMovimentacoes = daoMovimentacao.retornaListaDeMovimentacoes();
         movimentacaoObservable = FXCollections.observableArrayList(listaDeMovimentacoes);
         tabelaMovimentacao.setItems(movimentacaoObservable);
-    }
-
-//    private void filtraData(){
-//        converteMes();
-//        movimentacaoFiltered.setPredicate(
-//        new Predicate<Movimentacao>(){
-//            
-//        }
-//        );
-//    }
-    private void criaTabela() {
-        colunaTipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
         colunaData.setCellValueFactory(new PropertyValueFactory<>("data"));
+        colunaTipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
         colunaCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
         colunaValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
-        tabelaMovimentacao.setItems(movimentacaoObservable);
     }
 
-    private void carregaTabelaComDadosManuais() {
-//        categoria1 = new Categoria(20, "Salário");
-//        categoria2 = new Categoria(21, "Alimentação");
-//        categoria3 = new Categoria(22, "Passagens");
-//        tipoDeMovimentacao1 = new TipoDeMovimentacao(30, "Receita");
-//        tipoDeMovimentacao2 = new TipoDeMovimentacao(31, "Despesa");
-//        tipoDeMovimentacao3 = new TipoDeMovimentacao(32, "Despesa");
-//        movimentacao1 = new Movimentacao(LocalDate.of(2018, 06, 15), 800, "Câmara de Vereadores", 'S', tipoDeMovimentacao1, categoria1);
-//        movimentacao2 = new Movimentacao(LocalDate.of(2018, 10, 15), 200, "Restaurante Pingos", 'N', tipoDeMovimentacao2, categoria2);
-//        movimentacao3 = new Movimentacao(LocalDate.of(2018, 02, 05), 20, "Passagens de ônibus", 'S', tipoDeMovimentacao3, categoria3);
-////        movimentacao1.exibeTodasMovimentacoes();
-////        movimentacao2.exibeTodasMovimentacoes();
-////        categoria1.exibeDadosCategoria();
-////        categoria2.exibeDadosCategoria();
-////        tipoDeMovimentacao1.exibeTiposDeMovimetacoes();
-////        tipoDeMovimentacao2.exibeTiposDeMovimetacoes();
-//        movimentacaoObservable.add(movimentacao1);
-//        movimentacaoObservable.add(movimentacao2);
-//        movimentacaoObservable.add(movimentacao3);
+    private void criaTabela() {
+        tabelaMovimentacao.setItems(movimentacaoObservable);
+        colunaData.setCellValueFactory(new PropertyValueFactory<>("data"));
+        colunaTipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
+        colunaCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
+        colunaValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
     }
 
     public void preencheComboBoxMes() {
@@ -189,97 +161,98 @@ public class TelaPrincipalController implements Initializable {
     /**
      * Configura o label para exibir a última movimentação na tela.
      */
-//    public void exibeUltimaMovimentacao() {
-//        int tamanho = movimentacaoObservable.size();
-//        labelTipo.setText(movimentacaoObservable.get(tamanho - 1).exibeTipoDeMovimentacao());
-//        labelUltimaMovimentacao.setText(movimentacaoObservable.get(tamanho - 1).exibeValorDaMovimentacao());
-//    }
+    public void exibeUltimaMovimentacao() {
+        int tamanho = movimentacaoObservable.size();
+        labelTipo.setText(movimentacaoObservable.get(tamanho - 1).exibeTipoDeMovimentacao());
+        labelUltimaMovimentacao.setText(movimentacaoObservable.get(tamanho - 1).exibeValorDaMovimentacao());
+    }
+    
     /**
-     * @param tipo - Informar se a movimentação é uma receita ou despesa.
-     * @param ehNofuturo - Informar se a movimentação já aconteceu ou está
+     * @param tipo - Informa se a movimentação é uma receita ou despesa.
+     * @param ehNofuturo boolean = 0, se já aconteceu. 1, se a operação foi
      * agendada.
      * @return somatório de todas as movimentações especificas realizadas.
      */
-//    public double calculaMovimentacao(String tipo, char ehNofuturo) {
-//        String tipoDeMovimentacao;
-//        String statusDaMovimentacao; // alterada
-//        double somatorioMovimentacoes = 0;
-//        for (int i = 0; i < movimentacaoObservable.size(); i++) {
-//            tipoDeMovimentacao = movimentacaoObservable.get(i).getTipo().getDescricao();
-//            statusDaMovimentacao = movimentacaoObservable.get(i).getParaOfuturo(); //alterada
-//            if (tipoDeMovimentacao.equalsIgnoreCase(tipo) && statusDaMovimentacao.equals(ehNofuturo)) {
-//                somatorioMovimentacoes = somatorioMovimentacoes + movimentacaoObservable.get(i).getValor();
-//            }
-//        }
-//        return somatorioMovimentacoes;
-//    }
-//
-//    /**
-//     * @return Somatório das desepesas efetuadas.
-//     */
-//    public double calculoDaDespesaAtual() {
-//        return calculaMovimentacao("Despesa", 'N');
-//    }
-//
-//    /**
-//     * @return Somatório das desepesas efetuadas + as planejadas.
-//     */
-//    public double calculaDaDespesaFutura() {
-//        return calculaMovimentacao("Despesa", 'S') + calculoDaDespesaAtual();
-//    }
-//
-//    /**
-//     * @return Somatório das receitas efetuadas.
-//     */
-//    public double calculaDaReceitaAtual() {
-//        return calculaMovimentacao("Receita", 'N');
-//    }
-//
-//    /**
-//     * @return Somatório das receitas efetuadas + as planejadas.
-//     */
-//    public double calculoDaReceitaFutura() {
-//        return calculaMovimentacao("Receita", 'S') + calculaDaReceitaAtual();
-//    }
-//
-//    /**
-//     * @return Retorna o saldo atual das movimentações financeiras efetuadas.
-//     */
-//    public double calculaSaldoAtual() {
-//        return calculaDaReceitaAtual() - calculoDaDespesaAtual();
-//    }
-//
-//    /**
-//     * @return Retorna o saldo atual das movimentações financeiras efetuadas +
-//     * as previstas.
-//     */
-//    public double calculaSaldoPrevisto() {
-//        return calculoDaReceitaFutura() - calculaDaDespesaFutura();
-//    }
-//
-//    /**
-//     * Configura na tela principal a cor do saldo previsto exibido.
-//     */
-//    public void configuraLabelDoSaldoPrevisto() {
-//        labelSaldoPrevisto.setText("R$ " + String.valueOf(calculaSaldoPrevisto()));
-//        if (calculaSaldoPrevisto() < 0) {
-//            labelSaldoPrevisto.setStyle("-fx-text-fill: red");
-//        } else {
-//            labelSaldoPrevisto.setStyle("-fx-text-fill: green");
-//        }
-//    }
-//
-//    /**
-//     * Configura na tela principal a cor do saldo atual exibido.
-//     */
-//    public void configuraLabelDoSaldoAtual() {
-//        labelSaldoAtual.setText("R$ " + String.valueOf(calculaSaldoAtual()));
-//        if (calculaSaldoAtual() < 0) {
-//            labelSaldoAtual.setStyle("-fx-text-fill: red");
-//        } else {
-//            labelSaldoAtual.setStyle("-fx-text-fill: green");
-//        }
-//    }
+    public double calculaMovimentacao(String tipo, boolean ehNofuturo) {
+        String tipoDeMovimentacao;
+        boolean statusDaMovimentacao;
+        double somatorioMovimentacoes = 0;
+        for (int i = 0; i < movimentacaoObservable.size(); i++) {
+            tipoDeMovimentacao = movimentacaoObservable.get(i).getTipo().getDescricao();
+            statusDaMovimentacao = movimentacaoObservable.get(i).getParaOfuturo(); //alterada
+            if (tipoDeMovimentacao.equalsIgnoreCase(tipo) && (statusDaMovimentacao == ehNofuturo)) {
+                somatorioMovimentacoes = somatorioMovimentacoes + movimentacaoObservable.get(i).getValor();
+            }
+        }
+        return somatorioMovimentacoes;
+    }
+
+    /**
+     * @return Somatório das desepesas efetuadas.
+     */
+    public double calculoDaDespesaAtual() {
+        return calculaMovimentacao("Despesa", false);
+    }
+
+    /**
+     * @return Somatório das desepesas efetuadas + as planejadas.
+     */
+    public double calculaDaDespesaFutura() {
+        return calculaMovimentacao("Despesa", true) + calculoDaDespesaAtual();
+    }
+
+    /**
+     * @return Somatório das receitas efetuadas.
+     */
+    public double calculaDaReceitaAtual() {
+        return calculaMovimentacao("Receita", false);
+    }
+
+    /**
+     * @return Somatório das receitas efetuadas + as planejadas.
+     */
+    public double calculoDaReceitaFutura() {
+        return calculaMovimentacao("Receita", true) + calculaDaReceitaAtual();
+    }
+
+    /**
+     * @return Retorna o saldo atual das movimentações financeiras efetuadas.
+     */
+    public double calculaSaldoAtual() {
+        return calculaDaReceitaAtual() - calculoDaDespesaAtual();
+    }
+
+    /**
+     * @return Retorna o saldo atual das movimentações financeiras efetuadas +
+     * as previstas.
+     */
+    public double calculaSaldoPrevisto() {
+        return calculoDaReceitaFutura() - calculaDaDespesaFutura();
+    }
+
+    /**
+     * Configura na tela principal a cor do saldo previsto exibido.
+     */
+    public void configuraLabelDoSaldoPrevisto() {
+        labelSaldoPrevisto.setText("R$ " + String.valueOf(calculaSaldoPrevisto()));
+        if (calculaSaldoPrevisto() < 0) {
+            labelSaldoPrevisto.setStyle("-fx-text-fill: red");
+        } else {
+            labelSaldoPrevisto.setStyle("-fx-text-fill: green");
+        }
+    }
+
+    /**
+     * Configura na tela principal a cor do saldo atual exibido.
+     */
+    public void configuraLabelDoSaldoAtual() {
+        labelSaldoAtual.setText("R$ " + String.valueOf(calculaSaldoAtual()));
+        if (calculaSaldoAtual() < 0) {
+            labelSaldoAtual.setStyle("-fx-text-fill: red");
+        } else {
+            labelSaldoAtual.setStyle("-fx-text-fill: green");
+        }
+    }
 
     private int converteMes() {
         int numeroDoMes = 0;

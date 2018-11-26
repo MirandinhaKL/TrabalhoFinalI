@@ -26,22 +26,22 @@ public class DAOMovimentacao {
     }
 
     public boolean adicionaMovimentacao(Movimentacao move) {
-        String sql = "insert into movimentacao(tipo, categoria, datas, valor, descricao, pago) value (?,?,?,?,?,?)";
+        String sql = "insert into movimentacao(tipo, categoria, data, valor, descricao, pago) value (?,?,?,?,?,?)";
         try {
             PreparedStatement declaracao = conexao.prepareStatement(sql);
             declaracao.setInt(1, move.getTipo().getIdTipoMovimentacao());
-            System.out.println("id categoria = " + move.getCategoria().getIdCategoria());
+            // System.out.println("id categoria = " + move.getCategoria().getIdCategoria());
             declaracao.setInt(2, move.getCategoria().getIdCategoria());
-            System.out.println("id tipo = " + move.getTipo().getIdTipoMovimentacao());
+            //   System.out.println("id tipo = " + move.getTipo().getIdTipoMovimentacao());
             declaracao.setDate(3, Date.valueOf(move.getData()));
-            System.out.println("data = " + java.sql.Date.valueOf(move.getData()));
+            //     System.out.println("data = " + java.sql.Date.valueOf(move.getData()));
             declaracao.setDouble(4, move.getValor());
-            System.out.println("valor = " + move.getValor());
+            //  System.out.println("valor = " + move.getValor());
             declaracao.setString(5, move.getDescricao());
-            System.out.println("descrição = " + move.getDescricao());
+            //  System.out.println("descrição = " + move.getDescricao());
             declaracao.setBoolean(6, move.getParaOfuturo());
-            System.out.println("operação para o futuro: " + String.valueOf(move.getParaOfuturo()));
-            System.out.println("Foi até aqui!");
+            //   System.out.println("operação para o futuro: " + String.valueOf(move.getParaOfuturo()));
+            System.out.println("Movimentação inserida!");
             declaracao.execute();
             declaracao.close();
             conexao.close();
@@ -62,28 +62,31 @@ public class DAOMovimentacao {
             ResultSet consultaBD = declaracao.executeQuery();
             while (consultaBD.next()) {
                 Movimentacao movimentacao = new Movimentacao();
-                TipoDeMovimentacao tipoMovimentacao = new TipoDeMovimentacao();
                 Categoria categoria = new Categoria();
+                TipoDeMovimentacao tipoMovimentacao = new TipoDeMovimentacao();
 
                 movimentacao.setIdMovimentacao(consultaBD.getInt("id"));
-                tipoMovimentacao.setIdTipoMovimentacao(consultaBD.getInt("id"));
-                categoria.setIdCategoria(consultaBD.getInt("id"));
-
                 movimentacao.setData(consultaBD.getDate("data").toLocalDate());
                 movimentacao.setValor(consultaBD.getDouble("valor"));
                 movimentacao.setDescricao(consultaBD.getString("descricao"));
                 movimentacao.setParaOfuturo(consultaBD.getBoolean("pago"));
-
-                //Obtendo os dados completos do TipoDeMovimentação
-                DAOTipoDeMovimentacao tipoMovimentacaoDao = new DAOTipoDeMovimentacao();
-                tipoMovimentacao = tipoMovimentacaoDao.retornaUmTipo(tipoMovimentacao);
+                categoria.setIdCategoria(consultaBD.getInt("id"));
+                System.out.println("Vendo se retorna... " + consultaBD.getInt("id"));
+                tipoMovimentacao.setIdTipoMovimentacao(consultaBD.getInt("id"));
+                System.out.println("Pegou O ID DO TIPO DE MOVIMENTAÇÃO? " + consultaBD.getInt("id"));
 
                 //Obtendo os dados completos da Categoria.
                 DAOCategoria categoriaDAO = new DAOCategoria();
                 categoria = categoriaDAO.retornaUmaCategoria(categoria);
-
+                System.out.println("catergoria retornada dao movimentacao = " + categoria);
                 movimentacao.setCategoria(categoria);
+                
+                //Obtendo os dados completos do TipoDeMovimentação
+                DAOTipoDeMovimentacao tipoMovimentacaoDao = new DAOTipoDeMovimentacao();
+                tipoMovimentacao = tipoMovimentacaoDao.retornaUmTipo(tipoMovimentacao);
+                System.out.println("tipo retornado classe daomovimentacao = " + tipoMovimentacao);
                 movimentacao.setTipo(tipoMovimentacao);
+                
                 listaRetornada.add(movimentacao);
             }
             declaracao.close();
